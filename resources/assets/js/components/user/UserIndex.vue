@@ -211,6 +211,7 @@ export default {
         this.loading = false
         this.$refs.UserRole.open = true
       } catch (e) {
+        console.log("catch")
         console.log(e)
       }
     }

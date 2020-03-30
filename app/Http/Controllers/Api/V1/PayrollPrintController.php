@@ -344,6 +344,7 @@ class PayrollPrintController extends Controller
     foreach ($employees as $e) {
       $grouped_payrolls[$e->employee_id][] = $e;
     }
+    
 
     $employees = [];
     foreach ($grouped_payrolls as $payroll_group) {
@@ -357,10 +358,10 @@ class PayrollPrintController extends Controller
       }
       $employees[] = $p;
     }
-
+    
     similar_text(strtolower($management_entity->name), 'prevision', $prevision_similarity);
     similar_text(strtolower($management_entity->name), 'futuro', $futuro_similarity);
-
+    
     if ($prevision_similarity > $futuro_similarity) {
       $data = [];
 
@@ -371,28 +372,33 @@ class PayrollPrintController extends Controller
 
         $first_contract = $e->first_contract();
         $first_date = Carbon::parse($first_contract->start_date);
-
         $last_contract = $e->last_contract();
-
+        
         if ($last_contract->retirement_date) {
           $retirement_date = Carbon::parse($last_contract->retirement_date);
         } else {
           $retirement_date = $last_contract->retirement_date;
         }
-
+        
         if ($retirement_date) {
           if ($retirement_date->year == $year && $retirement_date->month == $month->order) {
             $update = 'R';
             $update_date = $retirement_date->format('Ymd');
           }
-        } elseif ($first_date->year == $year && $first_date->month == $month->order) {
+          else {
+            $update = '';
+            $update_date = '';
+          }
+        } 
+        elseif ($first_date->year == $year && $first_date->month == $month->order) {
           $update = 'I';
           $update_date = $first_date->format('Ymd');
-        } else {
+        } 
+        else {
           $update = '';
           $update_date = '';
         }
-
+        //dd($update);
         $data[] = [
           'doc_type' => 'CI',
           'ci' => $ci[0],
@@ -458,6 +464,10 @@ class PayrollPrintController extends Controller
           if ($retirement_date->year == $year && $retirement_date->month == $month->order) {
             $update = 'R';
             $update_date = $retirement_date->format('d/m/Y');
+          }
+          else {
+            $update = '';
+            $update_date = '';
           }
         } elseif ($first_date->year == $year && $first_date->month == $month->order) {
           $update = 'I';

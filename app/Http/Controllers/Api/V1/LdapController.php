@@ -30,7 +30,6 @@ class LdapController extends Controller
   {
     $ldap = new Ldap();
     $ldap->create_group();
-
     $employees = Employee::where('active', true)->pluck('id')->toArray();
 
     $search = $ldap->list_entries();

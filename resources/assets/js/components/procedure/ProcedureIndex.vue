@@ -581,6 +581,7 @@ export default {
     },
     async print(url) {
       try {
+        console.log("asl")
         this.loading = true
         let res = await axios({
           method: "GET",
@@ -690,7 +691,9 @@ export default {
         this.bonusYear = res.data
         this.bonusProcedure.year = year
         this.clearBonusProcedure()
+        console.log("aqui try getbonus")
       } catch (e) {
+        console.log("aqui catch getbonus")
         console.log(e)
         this.bonusYear.year = year
         this.bonusProcedure.year = year
@@ -703,6 +706,7 @@ export default {
         let procedure = await axios.post(`procedure`, {...this.newProcedure, ...{
           worked_days: worked_days
         }})
+        console.log(worked_days)
         procedure = procedure.data
         let payrolls = await axios.post(`procedure/${procedure.id}/payroll`)
         payrolls = payrolls.data

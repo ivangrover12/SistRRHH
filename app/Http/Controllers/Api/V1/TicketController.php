@@ -17,7 +17,6 @@ class TicketController extends Controller
 
     $company = Company::first();
     $company->address = CompanyAddress::where('active', true)->first()->address;
-
     $grouped_payrolls = Payroll::where('procedure_id', $procedure->id)->leftJoin('employees as e', 'e.id', '=', 'payrolls.employee_id')->leftJoin('contracts as c', 'c.id', '=', 'payrolls.contract_id')->orderBy('e.last_name')->orderBy('e.mothers_last_name')->orderBy('c.start_date')->get()->groupBy('code');
     $payrolls = [];
     foreach ($grouped_payrolls as $payroll_group) {

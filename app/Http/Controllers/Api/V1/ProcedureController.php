@@ -42,6 +42,7 @@ class ProcedureController extends Controller
    */
   public function store(ProcedureForm $request)
   {
+    //dd($request['worked_days']);
     if (Procedure::where('active', true)->whereNull('deleted_at')->count() == 0) {
       if (Procedure::where('year', $request['year'])->where('month_id', $request['month_id'])->whereNull('deleted_at')->count() == 0) {
         $discount = EmployeeDiscount::where('active', true)->first();
@@ -199,7 +200,6 @@ class ProcedureController extends Controller
     $company = Company::first();
     $grouped_payrolls = Payroll::where('procedure_id', $procedure->id)->leftJoin('employees as e', 'e.id', '=', 'payrolls.employee_id')->leftJoin('contracts as c', 'c.id', '=', 'payrolls.contract_id')->orderBy('e.last_name')->orderBy('e.mothers_last_name')->orderBy('c.start_date')->get()->groupBy('employee_id');
     $payrolls = [];
-
     foreach ($grouped_payrolls as $payroll_group) {
       foreach ($payroll_group as $key => $pr) {
         if ($key == 0) {
@@ -217,7 +217,7 @@ class ProcedureController extends Controller
         $payroll->payment = $procedure->employer_contribution->living_expenses * $payroll->worked_days;
         $total_payment += $payroll->payment;
     }
-
+    
     $file_name = "refrigerios_" . $procedure->month->name . "_" . $procedure->year . ".pdf";
 
     $data = [
@@ -230,13 +230,13 @@ class ProcedureController extends Controller
       ],
       'total_payment' => $total_payment
     ];
-
+    
     if (!$request->has('report_type')) {
       return response()->json($data);
     } else {
       if ($request->report_type == 'pdf') {
         $footerHtml = view()->make('partials.footer')->with(array('paginator' => true, 'print_message' => $data['procedure']->active ? 'Borrador' : null, 'print_date' => true, 'date' => null))->render();
-
+        
         $options = [
         'orientation' => 'portrait',
         'page-width' => '216',
@@ -249,10 +249,10 @@ class ProcedureController extends Controller
         'footer-html' => $footerHtml,
         'user-style-sheet' => public_path('css/report-print.min.css')
         ];
-
+        //dd($procedure->employer_contribution->living_expenses);
         $pdf = \PDF::loadView('payroll.living_expenses', $data);
+        
         $pdf->setOptions($options);
-
         return $pdf->stream($file_name);
       } elseif ($request->report_type == 'txt') {
         $total_employees = count($data['employees']);

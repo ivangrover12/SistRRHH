@@ -12,7 +12,6 @@ class EmployeePayroll
   {
     $contract = $payroll->contract;
     $employee = $contract->employee;
-
     $this->code_image = null;
 
     // Common data
@@ -66,7 +65,7 @@ class EmployeePayroll
     $this->total_discounts = null;
     $this->payable_liquid = null;
     $this->employeeDiscounts($payroll);
-
+    
     // Employer template
     $this->contribution_insurance_company = null;
     $this->contribution_professional_risk = null;
@@ -74,13 +73,14 @@ class EmployeePayroll
     $this->contribution_employer_housing = null;
     $this->total_contributions = null;
     $this->employerContribution($payroll);
-
+    
     // Extra data
     $this->position_group = $contract->position->position_group->name;
     $this->position_group_id = $contract->position->position_group->id;
     $this->employer_number = $payroll->position_group->company_address->city->employer_number->number;
     $this->employer_number_id = $payroll->position_group->company_address->city->employer_number->id;
     $this->valid_contract = Util::valid_contract($payroll, null);
+    //dd($this->valid_contract);
   }
 
   public function setZeroAccounts()

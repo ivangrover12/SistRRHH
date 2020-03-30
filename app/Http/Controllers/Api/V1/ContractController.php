@@ -104,9 +104,10 @@ class ContractController extends Controller
     $data = [
       'company' => Company::first(),
       'contract' => Contract::findOrFail($id),
-      'mae' => Contract::where([['position_id', '1'], ['active', 'true']])->first(),
+      'mae' => Contract::where([['position_id', '6'], ['active', 'true']])->first(),
       'employer_number' => EmployerNumber::where('insurance_company_id', '1')->first(),
     ];
+    //dd($id,$type);
 
     $footerHtml = view()->make('partials.footer')->with(array('footer_margin' => '1cm', 'paginator' => true, 'print_date' => false, 'date' => $data['contract']->start_date))->render();
 

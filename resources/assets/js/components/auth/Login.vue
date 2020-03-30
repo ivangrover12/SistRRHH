@@ -80,9 +80,11 @@ export default {
             name: 'dashboard'
           })
         }
+        console.log("aqui en try")
       } catch (e) {
         auth.password = ''
         this.focusPassword()
+        console.log("aqui en catch")
       }
     }
   }

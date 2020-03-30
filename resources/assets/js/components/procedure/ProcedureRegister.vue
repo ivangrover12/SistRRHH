@@ -51,7 +51,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
-          color="primary"
+          color="secondary"
           @click="storeProcedure"
           :disabled="!valid"
         >
@@ -96,8 +96,10 @@ export default {
     },
     async storeProcedure() {
       try {
+        
         if (this.valid) {
-          this.$emit('storeProcedure', this.worked_days)
+        console.log(this.valid);
+        this.$emit('storeProcedure', this.worked_days)
           this.dialog = false
         }
       } catch (e) {

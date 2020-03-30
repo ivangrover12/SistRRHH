@@ -28,6 +28,7 @@ class AuthController extends Controller
    */
   public function store(AuthForm $request)
   {
+
     if ($request['username'] == 'admin') {
       $token = auth('api')->attempt(request(['username', 'password']));
 
@@ -35,6 +36,7 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
       }
     }
+
 
     $user = User::whereUsername($request['username'])->first();
     if ($user) {
