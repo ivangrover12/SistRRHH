@@ -423,7 +423,7 @@ class Util
     return $filtered;
   }
 
-  public static function attendance_checktype($job_schedules, $check, $calc_discount = false)
+  public static function attendance_checktype($job_schedules, $check, $calc_discount = true)
   {
     $attendance = (object)[
       'type' => 'X',
@@ -434,23 +434,26 @@ class Util
       'shift' => null
     ];
     $checktime = CarbonImmutable::parse($check);
-    
+    //dd($job_schedules[0]->start_hour_min_limit, $job_schedules[0]->start_hour, $job_schedules[1]->start_hour_min_limit, $job_schedules[1]->start_hour, $job_schedules[0]->end_hour, $job_schedules[0]->end_hour_max_limit, $job_schedules[1]->end_hour, $job_schedules[1]->end_hour_max_limit);
     foreach ($job_schedules as $schedule) {
       $periods = (object)[
         'in' => (object)[
           'start_limit' => $checktime->hours($schedule->start_hour_min_limit)->minutes($schedule->start_minutes_min_limit)->seconds(0),
-          'end_limit' => $checktime->hours($schedule->end_hour)->minutes($schedule->end_minutes)->seconds(0),
-          'start' => $checktime->hours($schedule->start_hour)->minutes($schedule->start_minutes)->seconds(0)
+          'end_limit' => $checktime->hours($schedule->start_hour)->minutes($schedule->start_minutes)->seconds(0),
+          'start' => $checktime->hours($schedule->start_hour)->minutes($schedule->end_minutes_max_limit)->seconds(0)
         ],
         'out' => (object)[
           'start_limit' => $checktime->hours($schedule->end_hour)->minutes($schedule->end_minutes)->seconds(0),
-          'end_limit' => $checktime->hours($schedule->end_hour_max_limit)->minutes($schedule->end_minutes_max_limit)->seconds(59)
+          'end_limit' => $checktime->hours($schedule->end_hour_max_limit)->minutes($schedule->end_minutes_max_limit)->seconds(0)
         ]
       ];
-      //dd($periods);
+      //dd(JobScheduleDiscount::whereUnit('minutes')->orderBy('time', 'DESC')->get());
       foreach ($periods as $key => $period) {
-        if ($calc_discount) $discounts = JobScheduleDiscount::whereUnit('minutes')->orderBy('time', 'DESC')->get();
+        //dd($checktime->greaterThan($period->start), $checktime->diffInMinutes($period->start), $periods);
+        if ($calc_discount) $discounts = JobScheduleDiscount::whereUnit('minutes')->orderBy('time', 'ASC')->get();
+        //if($key == 'out') {dd($checktime,$period->start_limit, $period->end_limit, $periods);}
         $find = $checktime->between($period->start_limit, $period->end_limit);
+        //dd($checktime,$period->start_limit, $period->end_limit, $periods);
         if ($find) {
           if ($key == 'in') {
             $attendance->type = 'I';
@@ -458,6 +461,7 @@ class Util
               foreach ($discounts as $discount) {
                 if ($checktime->greaterThan($period->start)) {
                   $delay = $checktime->diffInMinutes($period->start);
+                  //dd($checktime, $period->start, $checktime->diffInMinutes($period->start), $delay);
                   if ($delay > $discount->time) {
                     $attendance->delay->minutes = $delay;
                     $attendance->delay->discount = $discount->discount;

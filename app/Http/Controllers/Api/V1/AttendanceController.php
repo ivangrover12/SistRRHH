@@ -103,7 +103,7 @@ class AttendanceController extends Controller
         if ($zk->connect()) {
           $checks = $zk->getAttendance();
           //dd($checks);
-        //   $zk->disconnect();
+          $zk->disconnect();
           \Log::info('Encontrados ' . count($checks) . ' registros para sincronizar...');
           if (count($checks) > 0) {
             $checks = collect($checks)->groupBy(1)->toArray();
@@ -116,6 +116,7 @@ class AttendanceController extends Controller
               //dd($employee);
               if ($employee) {
                 $employee_type = $employee->consultant();
+                //dd($employee_type);
                 if ($employee_type === true) {
                   $job_schedules = $employee->last_consultant_contract()->job_schedules;
                 } elseif ($employee_type === false) {
@@ -123,7 +124,9 @@ class AttendanceController extends Controller
                 } else {
                   $employee = null;
                 }
-                //dd($job_schedules);
+                //dd($checks);
+                //print_r($job_schedules[0]);
+                //die();
               }
                else {
                 $message = 'No se encontró ningún empleado con CI: ' . $user->SSN;
@@ -135,7 +138,7 @@ class AttendanceController extends Controller
                   $user_id = intval($user->USERID);
                   //dd($user_id);
                   $checktime = Carbon::parse($check[3])->format('Y-m-d H:i:s');
-                  //dd($checktime);
+                  //dd($user_check[23]);
                   $exists = AttendanceCheck::where('USERID', $user_id)->where('CHECKTIME', $checktime)->first();
                   //dd($exists);
                   if (!$exists) {

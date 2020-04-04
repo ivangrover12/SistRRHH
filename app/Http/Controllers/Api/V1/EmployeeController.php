@@ -185,22 +185,22 @@ class EmployeeController extends Controller
 
   public function attendance(Request $request, $id)
   {
-    //return('Hola BAM BAM');
+    //dd($id);
     $employee = Employee::findOrFail($id);
+    //dd($employee);
     $attendance_user = AttendanceUser::where('SSN', 'like', $employee->identity_card . '%')->orderBy('USERID', 'DESC')->first();
     $date_range = $this->date_range($request, $employee);
+    //dd($request, $employee, $date_range);
     $from = $date_range->from;
     $to = $date_range->to;
-    //dd($from,$to);
     if ($attendance_user) {
-      //dd($attendance_user->checks()->first());
       if (json_decode($request->input('with_discounts'))) {
         $with_discounts = true;
       } else {
         $with_discounts = false;
       }
-      //dd($attendance_user->checks()->first());
-      $checks = $attendance_user->checks()->where('CHECKTIME', '>=', $from->startOfDay()->format('Y-m-d H:i:s'))->where('CHECKTIME', '<=', $to->endOfDay()->format('Y-m-d H:i:s'))->get();
+      //dd($attendance_user->checks()->get(),$from,$to);
+      $checks = $attendance_user->checks()->where('CHECKTIME', '>=', $from->startOfDay()->format('Y-m-d H:i:s'))->where('CHECKTIME', '<=', $to->endOfDay()->format('Y-m-d H:i:s'))->orderBy('CHECKTIME', 'ASC')->get();
       //dd($checks);
       if ($checks->count() == 0) {
         return response()->json([
@@ -235,8 +235,9 @@ class EmployeeController extends Controller
         $check->delay = (object) [
           'minutes' => 0
         ];
+        //dd($check->CHECKTIME);
         if ($job_schedules) {
-          $attendance = Util::attendance_checktype($job_schedules, $check->checktime, true);
+          $attendance = Util::attendance_checktype($job_schedules, $check->CHECKTIME, true);
           //dd($attendance);
           $check->delay = $attendance->delay;
           $check->shift = $attendance->shift;
@@ -258,7 +259,6 @@ class EmployeeController extends Controller
         'to' => $to->toDateString(),
         'checks' => $with_discounts ? Util::filter_checks($checks) : collect(array_unique($checks->all()))->values()
       ];
-
       if ($with_discounts) {
         $data['employee'] = $employee;
       }

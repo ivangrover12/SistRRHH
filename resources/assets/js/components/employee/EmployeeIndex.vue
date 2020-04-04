@@ -255,7 +255,7 @@ export default {
           this.employees = this.employeesActive;
         }
         this.loading = false
-        console.log(this.employees)
+        //console.log(this.employees)
       } catch (e) {
         console.log(e);
       }

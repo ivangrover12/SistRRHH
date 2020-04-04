@@ -226,6 +226,7 @@ export default {
           }
         })
         this.departures = res.data
+        //console.log(this.departures)
       } catch (e) {
         console.log(e)
         this.departures = []
@@ -244,6 +245,8 @@ export default {
             with_discounts: print
           }
         })
+        //console.log(res.data.from)
+          //console.log(res.data.to)
         if (print) {
           let blob = new Blob([res.data], {
             type: "application/pdf"
@@ -251,17 +254,16 @@ export default {
           printJS(window.URL.createObjectURL(blob));
         } else {
           this.checks = res.data.checks
-          console.log(this.checks)
+          //console.log(this.checks)
           this.limits = {
             start: res.data.from,
             end: res.data.to
           }
           this.getDepartures(id)
-          console.log(res.data.from)
-          console.log(res.data.to)
+          
         }
       } catch (e) {
-        console.log('error en catch')
+        //console.log('error en catch')
         console.log(e)
         this.checks = []
       } finally {
