@@ -8,6 +8,6 @@ $factory->define(App\User::class, function (Faker $faker) {
     'username' => $faker->unique()->firstname,
     'employee_id' => Employee::inRandomOrder()->first(),
     'position' => mb_strtoupper($faker->unique()->catchPhrase),
-    'password' => Hash::make('secret'),
+    'password' => Hash::make('secret'), 
   ];
 });
