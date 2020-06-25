@@ -42,40 +42,16 @@ class UserController extends Controller
    * @param  \App\Employee  $employee
    * @return \Illuminate\Http\Response
    */
-  public function store(UserEmployeeForm $request)
+  public function store(Request $request)
   {
-    if (!env("LDAP_AUTHENTICATION")) {
-      $employee = Employee::findOrFail(request("employee_id"));
-      $user = new User();
-      $user->username = "";
-      $user->username .= substr($employee->first_name, 0, 1);
-      if ($employee->last_name != null) {
-        $user->username .= explode(" ", $employee->last_name)[0];
-      } else {
-        $user->username .= explode(" ", $employee->mothers_last_name)[0];
-      }
-      $user->username = strtolower($user->username);
-      $user->password = Hash::make($employee->identity_card);
-      $user->save();
-      return $user;
-    } else {
-      $employee = Employee::findOrFail(request("employee_id"));
-      $ldap = new Ldap();
-      $user = new User();
-      $entry = $ldap->get_entry($employee->id);
-      $username = $entry['uid'];
-
-      if ($username) {
-        $user->username = $username;
-        $user->employee_id = $employee->id;
-        $user->position = $entry['title'];
-        $user->password = Hash::make($username);
-        $user->save();
-
-        return $user;
-      }
-      abort(409);
-    }
+    $employee = Employee::findOrFail($request->employee_id);
+    $user = new User();
+    $user->username = strtolower($employee->first_name);
+    $user->active = true;
+    $user->employee_id = $employee->id;
+    $user->password = Hash::make($employee->identity_card);
+    $user->save();
+    return $user;
   }
 
   /**
