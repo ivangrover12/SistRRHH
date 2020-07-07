@@ -12,6 +12,12 @@
     "permission": "read-employee",
     "params": {}
   }, {
+    "href": "healthCardIndex",
+    "title": "Carnets Sanitarios",
+    "icon": "group",
+    "permission": "read-employee",
+    "params": {}
+  }, {
     "title": "Eventuales",
     "icon": "person",
     "permission": "read-eventual",
