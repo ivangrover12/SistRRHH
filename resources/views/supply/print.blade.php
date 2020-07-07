@@ -9,7 +9,7 @@ $max_requests = 14;
 <html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>PLATAFORMA VIRTUAL ADMINISTRATIVA - MUSERPOL </title>
+  <title>PLATAFORMA VIRTUAL ADMINISTRATIVA - PASTELERIA VICTORIA'S </title>
   <link rel="stylesheet" href="{{ public_path("/css/report-print.min.css") }}" media="all"/>
   <style>
     .scissors-rule {
@@ -56,14 +56,14 @@ $max_requests = 14;
       <tr>
         <th class="w-25 text-left no-padding no-margins align-middle">
           <div class="text-left">
-            <img src="{{ public_path("/img/logo.png") }}" class="w-40">
+            <img src="{{ public_path("/img/logo1.jpg") }}" class="w-40">
           </div>
         </th>
         <th class="w-50 align-top">
           <div class="font-hairline leading-tight text-xxs" >
-            <div>MUTUAL DE SERVICIOS AL POLICÍA "MUSERPOL"</div>
+            <div>"PASTELERIA VICTORIA'S</div>
             <div>DIRECCIÓN DE ASUNTOS ADMINISTRATIVOS</div>
-            <div>UNIDAD ADMINISTRATIVA</div>
+            <!-- <div>UNIDAD ADMINISTRATIVA</div> -->
           </div>
         </th>
         <th class="w-25 no-padding no-margins align-top">

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar>
-      <v-toolbar-title>Planillas Eventuales</v-toolbar-title>
+      <v-toolbar-title>Planillas</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-flex xs2>
         <v-select
@@ -279,7 +279,7 @@
                       style="max-height: 360px"
                       class="scroll-y"
                     >
-                      <v-list
+                      <!-- <v-list
                         v-for="(item, index) in templateTypes"
                         v-bind:item="item"
                         v-bind:index="index"
@@ -290,12 +290,12 @@
                           <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=${item}&report_name=B-${index}&valid_contracts=1&with_account=1`)">
                             <span class="caption">B-{{ ++index }} ({{ item }}.)</span>
                           </v-list-tile>
-                        </div>
-                        <div v-else-if="item == 'P'">
+                        </div> -->
+                        <!-- <div v-else-if="item == 'P'">
                           <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=P&report_name=B-2&valid_contracts=0&with_account=0&management_entity=0&position_group=0&employer_number=1`)">
                             <span class="caption">B-{{ ++index }} ({{ item }}.)</span>
                           </v-list-tile>
-                        </div>
+                        </div> -->
                       </v-list>
                       <v-list
                         v-for="(item, index) in templateTypes"
@@ -307,20 +307,20 @@
                           <span class="caption">A-{{ ++index }} ({{ item }}.)</span>
                         </v-list-tile>
                       </v-list>
-                      <v-list>
+<!--                        <v-list>
                         <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=S&report_name=S-1&valid_contracts=0&with_account=0`)">
                           <span class="caption">S-1 (S.)</span>
                         </v-list-tile>
-                      </v-list>
-                      <v-list>
+                      </v-list>  -->
+<!--                       <v-list>
                         <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=T&report_name=A-3&valid_contracts=0&with_account=0`)">
                           <span class="caption">A-3 (T.)</span>
                         </v-list-tile>
                         <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=T&report_name=A-8&valid_contracts=0&with_account=0`)">
                           <span class="caption">A-8 (T.)</span>
                         </v-list-tile>
-                      </v-list>
-                      <v-list
+                      </v-list> -->
+                      <!-- <v-list
                         v-for="(t, indexT) in templateTypes"
                         v-bind:item="t"
                         v-bind:index="indexT"
@@ -342,8 +342,8 @@
                         v-bind:item="t"
                         v-bind:index="indexT"
                         v-bind:key="t.id"
-                      >
-                        <div
+                      > -->
+                        <!-- <div
                           v-for="(e, indexE) in employerNumbers"
                           v-bind:item="e"
                           v-bind:index="indexE"
@@ -367,7 +367,7 @@
                             </v-list-tile>
                             <span>#Empleador: {{ e.number }}</span>
                           </v-tooltip>
-                        </div>
+                        </div> -->
                       </v-list>
                     </v-card>
                   </v-menu>

@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>PLATAFORMA VIRTUAL ADMINISTRATIVA - MUSERPOL </title>
+    <title>PLATAFORMA VIRTUAL ADMINISTRATIVA - PASTELERIA VICTORIA'S </title>
     <link rel="stylesheet" href="{{ public_path("/css/report-print.min.css") }}" media="all"/>
     <style>
       .border-left-white {
@@ -16,14 +16,14 @@
       <tr>
         <th class="w-15 text-left no-padding no-margins align-middle">
           <div class="text-left">
-            <img src="{{ public_path("/img/logo.png") }}" class="w-50">
+            <img src="{{ public_path("/img/logo1.jpg") }}" class="w-50">
           </div>
         </th>
         <th class="w-70 align-top">
           <div class="font-hairline leading-tight text-xs" >
-            <div>MUTUAL DE SERVICIOS AL POLICÍA "MUSERPOL"</div>
+            <div> "PASTELERIA VICTORIA'S"</div>
             <div>DIRECCIÓN DE ASUNTOS ADMINISTRATIVOS</div>
-            <div>UNIDAD DE RECURSOS HUMANOS</div>
+            <!-- <div>UNIDAD DE RECURSOS HUMANOS</div> -->
           </div>
         </th>
         <th class="w-15 no-padding no-margins align-top">

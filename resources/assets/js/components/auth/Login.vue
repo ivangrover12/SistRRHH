@@ -18,9 +18,9 @@
               @keyup.enter="focusPassword()"
               v-model="auth.username"
               prepend-icon="person"
-              label="Usuario"
               name="usuario"
               :error-messages="errors.collect('usuario')"
+              label="Usuario"
               autocomplete="on"
               autofocus
               required

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar>
-      <v-toolbar-title>EVENTUALES {{ procedure.month.name }}</v-toolbar-title>
+      <v-toolbar-title>PLANILLAS DE {{ procedure.month.name }}</v-toolbar-title>
       <v-tooltip color="white" role="button" bottom>
         <v-icon slot="activator" class="ml-4">info</v-icon>
         <div>
@@ -331,7 +331,7 @@ export default {
     headers() {
       return [
         {
-          text: "Funcionario",
+          text: "Personal",
           value: "contract.employee.last_name",
           class: ["ml-2", "mr-2", "pl-2", "pr-2"]
         }, {

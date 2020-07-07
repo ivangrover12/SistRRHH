@@ -2,9 +2,9 @@
   <div>
     <v-btn @click.native="openDialog" color="danger">SINCRONIZAR</v-btn>
     <v-dialog persistent v-model="show" max-width="900px" @keydown.esc="!loading ? close() : ''">
-      <v-card>
-        <v-toolbar dark color="secondary">
-          <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
+      <v-card >
+        <v-toolbar dark color="primary">
+          <v-toolbar-title class="black--text">{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click.native="close()" v-if="!loading">
             <v-icon>close</v-icon>
@@ -43,7 +43,7 @@
 
         <v-card-actions v-if="!loading">
           <v-spacer></v-spacer>
-          <v-btn color="success" @click.native="close"><v-icon>close</v-icon> Cerrar</v-btn>
+          <v-btn color="primary" @click.native="close"><v-icon>close</v-icon> Cerrar</v-btn>
           <v-btn v-if="step < 2" color="error" @click.native="syncDevice" ><v-icon>check</v-icon> Aceptar</v-btn>
         </v-card-actions>
       </v-card>

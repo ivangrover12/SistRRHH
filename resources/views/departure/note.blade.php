@@ -10,7 +10,7 @@ $consultant = $departure->employee->consultant();
 <html lang="es">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>PLATAFORMA VIRTUAL - MUSERPOL</title>
+    <title>PLATAFORMA VIRTUAL - PASTELERIA VICTORIA'S</title>
     <link rel="stylesheet" href="{{ public_path("/css/report-print.min.css") }}" media="all" />
     <style>
       body {
@@ -26,7 +26,7 @@ $consultant = $departure->employee->consultant();
         <tr>
           <th class="w-50 text-left no-padding no-margins">
             <div class="text-left">
-              <img src="{{ public_path("/img/logo.png") }}" class="w-50">
+              <img src="{{ public_path("/img/logo1.jpg") }}" class="w-50">
             </div>
           </th>
           <th class="w-50 text-right no-padding no-margins">
@@ -55,7 +55,7 @@ $consultant = $departure->employee->consultant();
         Señor:
       </div>
       <div>
-        Cnl. Desp. {{ App\Position::with(['contracts' => function ($query) { $query->orderBy('created_at', 'ASC')->with('employee')->first(); }])->first()->contracts[0]->employee->fullName() }}
+             {{ App\Position::with(['contracts' => function ($query) { $query->orderBy('created_at', 'ASC')->with('employee')->first(); }])->first()->contracts[0]->employee->fullName() }}
       </div>
       <div class="font-bold">
         {{ App\Position::first()->name }}
@@ -83,7 +83,7 @@ $consultant = $departure->employee->consultant();
           <span>
               Mediante la presente, tengo a bien dirigirme a su Autoridad a objeto de solicitar se me autorice la LICENCIA {{ $addon }} {{ $departure->departure_reason->name }}, amparado por
               @if ($departure->departure_reason->name != 'EXAMEN DE PRÓSTATA' && $departure->departure_reason->name != 'EXAMEN DE COLON')
-                el Reglamento Interno de Personal de la Mutual de Servicio al Policía,
+                el Reglamento Interno de Personal de PASTELERIA VICTORIA'S,
               @endif
           </span>
             @switch ($departure->departure_reason->name)
@@ -97,7 +97,7 @@ $consultant = $departure->employee->consultant();
                   DEL REGIMEN DE ASISTENCIA, Capítulo III DE LAS LICENCIAS, Artículo 34 LICENCIA SIN GOCE DE HABER, Incisos:
                   <ol type="a">
                     <li>Cuando la servidora o servidor público no pueda acceder a una licencia con cargo a vacación.</li>
-                    <li>Por la asistencia a cursos de capacitación, Post Grado como participante particular (sin patrocinio de MUSERPOL).</li>
+                    <li>Por la asistencia a cursos de capacitación, Post Grado como participante particular (sin patrocinio de PASTELERIA VICTORIA'S).</li>
                     <li>Por motivos de estudio o realización de un trabajo de grado, hasta tres días calendario hasta antes de su examen o defensa del trabajo de grado, previa certificación de la autoridad universitaria competente.</li>
                     <li>Por motivo de salud (tratamientos a la o el servidor o miembro de su familia que no sean pagados por el Seguro de Social) por periodos no mayores a treinta días.</li>
                     <li>Por el tiempo de Cumplimiento del Servicio Militar, conforme a Ley.</li>

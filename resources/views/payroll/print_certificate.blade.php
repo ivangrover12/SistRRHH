@@ -20,7 +20,7 @@
         <br><br><br><br><br><br>
         <div style="font-size: 8pt;" align="right">
             <p>DIRECCIÓN DE ASUNTOS ADMINISTRATIVOS</p>
-            <p>UNINDAD DE RECURSOS HUMANOS</p>
+            <!-- <p>UNINDAD DE RECURSOS HUMANOS</p> -->
             <p>Certificado RR.HH.</p>
             <p>Fecha {{ date('d') }} de {{ Carbon::now()->formatLocalized('%B') }} de {{ date('Y') }}</p>
         </div>
@@ -28,7 +28,7 @@
             <p>CERTIFICADO DE HABERES Y APORTES LABORALES</p>
         </div>
         <div style="font-size: 13pt;margin-top: 15px;" align="justify">
-            <p>El suscrito Jefe de la Unidad de Recursos Humanos, dependiente de la Dirección de Asuntos Administrativos de la Mutual de Servicios Al Policia - MUSERPOL, en uso de sus especificas funciones y atribuciones, en cuanto puede y el derecho le permite:</p>
+            <p>El suscrito Jefe de la Unidad de Recursos Humanos, dependiente de la Dirección de Asuntos Administrativos - PASTELERIA VICTORIA'S, en uso de sus especificas funciones y atribuciones, en cuanto puede y el derecho le permite:</p>
         </div>
         <div style="font-size: 13pt;margin-top: 10px ;" align="justify">
             <p><span style="font-weight: bold">CERTIFICA:</span></p>

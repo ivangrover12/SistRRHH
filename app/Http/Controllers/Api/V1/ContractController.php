@@ -104,7 +104,7 @@ class ContractController extends Controller
     $data = [
       'company' => Company::first(),
       'contract' => Contract::findOrFail($id),
-      'mae' => Contract::where([['position_id', '6'], ['active', 'true']])->first(),
+      'mae' => Contract::where([['position_id', '1'], ['active', 'true']])->first(),
       'employer_number' => EmployerNumber::where('insurance_company_id', '1')->first(),
     ];
     //dd($id,$type);

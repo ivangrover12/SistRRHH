@@ -274,13 +274,14 @@ export default {
                 obj.data = this.employees.filter(o => {
                   return o.consultant == false
                 })
-                obj.title = 'Eventuales'
+                obj.title = 'Contratos'
                 obj.icon = 'person'
-                obj.color = 'teal lighten-1'
+                obj.color = 'amber darken-2'
+                /* obj.color = 'teal lighten-1' */
                 obj.downloadable = true
                 obj.role = null
                 break
-              case 'consultants':
+              /* case 'consultants':
                 obj.data = this.employees.filter(o => {
                   return o.consultant == true
                 })
@@ -289,7 +290,7 @@ export default {
                 obj.color = 'blue-grey darken-1'
                 obj.downloadable = true
                 obj.role = null
-                break
+                break */
               case 'withoutContracts':
                 obj.data = this.employees.filter(o => {
                   return o.consultant == null && o.active

@@ -14,7 +14,7 @@ use \App\Helpers\Util;
             <tr>
                 <th class="w-25 text-left no-padding no-margins align-middle">
                     <div class="text-left">
-                        <img src="{{ public_path("/img/logo.png") }}" class="w-40">
+                        <img src="{{ public_path("/img/logo1.jpg") }}" class="w-40">
                     </div>
                 </th>
                 <th class="w-50 align-top">

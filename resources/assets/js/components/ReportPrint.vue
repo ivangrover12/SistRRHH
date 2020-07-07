@@ -5,8 +5,8 @@
       <div class="pl-2">Reporte</div>
     </v-btn>
     <v-card>
-      <v-toolbar dark color="secondary">
-        <v-toolbar-title class="white--text">Generar reporte para {{ type.name }} del {{ $moment(from).format('L') }} a {{ $moment(to).format('L') }}</v-toolbar-title>
+      <v-toolbar  color="primary">
+        <v-toolbar-title class="black--text">Generar reporte para Personal Contratado<!-- {{ type.name }} --> del {{ $moment(from).format('L') }} a {{ $moment(to).format('L') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark @click.native="close" v-if="!loading">
           <v-icon>close</v-icon>
@@ -17,7 +17,7 @@
         <v-card-text>
           <v-container grid-list-md text-xs-center fluid>
             <v-layout row wrap>
-              <v-flex xs2>
+<!--               <v-flex xs2>
                 <v-select
                   v-model="type"
                   :items="types"
@@ -28,8 +28,8 @@
                   return-object
                   single-line
                 ></v-select>
-              </v-flex>
-              <v-flex xs5>
+              </v-flex> -->
+              <v-flex xs6>
                 <div class="subheading font-weight-light">Desde:</div>
                 <v-date-picker
                   v-model="from"
@@ -39,10 +39,10 @@
                   locale="es-BO"
                   first-day-of-week="1"
                   :max="to"
-                  color="green darken-2"
+                  color="blue darken-2"
                 ></v-date-picker>
               </v-flex>
-              <v-flex xs5>
+              <v-flex xs6>
                 <div class="subheading font-weight-light">Hasta:</div>
                 <v-date-picker
                   v-model="to"
@@ -60,7 +60,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" @click.native="close"><v-icon>close</v-icon> Cerrar</v-btn>
+          <v-btn color="primary" @click.native="close"><v-icon>close</v-icon> Cerrar</v-btn>
           <v-btn color="error" @click.native="print"><v-icon>check</v-icon> Imprimir</v-btn>
         </v-card-actions>
       </div>
@@ -84,9 +84,6 @@ export default {
       types: [{
         value: 'eventual',
         name: 'Eventuales'
-      }, {
-        value: 'consultant',
-        name: 'Consultores'
       }],
       from: null,
       to: null

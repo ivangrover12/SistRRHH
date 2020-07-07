@@ -90,7 +90,7 @@
             <td class="text-xs-center bordered">
               <div v-if="$route.query.departureType == 'all' && ($store.getters.role == 'rrhh' || $store.getters.role == 'admin')">
                 <v-tooltip top v-show="props.item.approved === null || props.item.approved === false">
-                  <v-btn slot="activator" small icon color="success" @click.native="switchActive(props.item.id, true)">
+                  <v-btn slot="activator" small icon color="primary" @click.native="switchActive(props.item.id, true)">
                     <v-icon>check</v-icon>
                   </v-btn>
                   <span>Aprobar</span>
@@ -121,7 +121,7 @@
                   </v-btn>
                   <span>Eliminar</span>
                 </v-tooltip>
-                <Transfer :departure="props.item" :color="props.expanded ? 'warning' : 'success'" v-if="departureType(props.item).group == 'COMISIÓN'"/>
+                <Transfer :departure="props.item" :color="props.expanded ? 'warning' : 'primary'" v-if="departureType(props.item).group == 'COMISIÓN'"/>
               </div>
             </td>
           </tr>

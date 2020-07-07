@@ -71,7 +71,7 @@
             primary
             large
             block
-            color="success"
+            color="primary"
           > Cambiar Contraseña </v-btn>
         </v-flex>
       </v-card-actions>

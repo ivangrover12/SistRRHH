@@ -49,7 +49,7 @@
                     <v-btn medium slot="activator" flat icon color="info" @click="getChecks(selectedEmployee, true)">
                       <v-icon>print</v-icon>
                     </v-btn>
-                    <span>Imprimir asistencia del funcionario</span>
+                    <span>Imprimir asistencia del personal</span>
                   </v-tooltip>
                   <AttendanceAdd v-if="$store.getters.role == 'admin' && $route.query.add" :id="selectedEmployee" :limits="limits" :bus="bus"></AttendanceAdd>
                 </template>

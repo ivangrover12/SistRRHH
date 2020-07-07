@@ -259,7 +259,8 @@ class EmployeeController extends Controller
         'to' => $to->toDateString(),
         'checks' => $with_discounts ? Util::filter_checks($checks) : collect(array_unique($checks->all()))->values()
       ];
-      if ($with_discounts) {
+      //dd($with_discounts=true);
+      if ($with_discounts=true) {
         $data['employee'] = $employee;
       }
 

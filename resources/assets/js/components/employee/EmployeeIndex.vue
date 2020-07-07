@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>
         <v-select
-          :items="['Todos los Empleados', 'Eventuales', 'Consultores', 'Sin contratos']"
+          :items="['Todos los Empleados', 'Contratados','Sin contrato']"
           v-model="employeeType"
           class="title font-weight-medium"
         ></v-select>
@@ -123,7 +123,7 @@
                 <td>
                   <v-list-tile-content>{{ item.street }} {{ item.address_number }}</v-list-tile-content>
                 </td>
-              </tr>
+              </tr> 
               <tr>
                 <td>
                   <v-list-tile-content class="font-weight-bold">Celular:</v-list-tile-content>
@@ -140,6 +140,15 @@
                   <v-list-tile-content>{{ item.landline_number }}</v-list-tile-content>
                 </td>
               </tr>
+              <tr>
+                <v-flex>
+                  <v-btn raised class="primary" @click="onPickFile">Cargar Imagen</v-btn>
+                  <input type="file" style="display: none" ref="fileInput" accept="img/*" @change="onFilePicked"> 
+                </v-flex>
+                <v-flex>
+                  <img :src="imageURL" height="150">
+                </v-flex>
+              </tr> 
             </table>
           </v-card-text>
         </v-card>
@@ -178,9 +187,11 @@ export default {
       employeesInactive: [],
       employees: [],
       search: "",
+      imageURL: '',
+      image: null,
       headers: [
         { align: "center", text: "C.I.", class: ["ml-0", "mr-0", "pl-0", "pr-0"], value: "identity_card" },
-        { text: "Funcionario", class: ["ml-0", "mr-0", "pl-0", "pr-0"], value: "last_name" },
+        { text: "Personal", class: ["ml-0", "mr-0", "pl-0", "pr-0"], value: "last_name" },
         { align: "center", text: "Contrato", class: ["ml-0", "mr-0", "pl-0", "pr-0"], value: "mothers_last_name", sortable: false },
         { align: "center", text: "Nacimiento", class: ["ml-0", "mr-0", "pl-0", "pr-0"], value: "phone_number" },
         { text: "# Cuenta", class: ["ml-0", "mr-0", "pl-0", "pr-0"], value: "account_number" },
@@ -208,7 +219,7 @@ export default {
     filteredEmployees() {
       if (this.employeeType == 'Todos los Empleados') {
         return this.employees
-      } else if (this.employeeType == 'Eventuales') {
+      } else if (this.employeeType == 'Contratados') {
         return this.employees.filter(o => {
           return o.consultant == false
         })
@@ -216,7 +227,7 @@ export default {
         return this.employees.filter(o => {
           return o.consultant == true
         })
-      } else if (this.employeeType == 'Sin contratos') {
+      } else if (this.employeeType == 'Sin contrato') {
         return this.employees.filter(o => {
           return o.consultant == null
         })
@@ -239,6 +250,23 @@ export default {
     });
   },
   methods: {
+    onPickFile() {
+      this.$refs.fileInput.click()
+    },
+    onFilePicked (event) {
+      const files = event.target.files
+      
+      let filename = files[0].name;
+      if (filename.lastIndexOf('.') <= 0) {
+        return alert ('Porfavor adiciona el archivo correcto');
+      }
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', () => {
+        this.imageURL = fileReader.result
+      })
+      fileReader.readAsDataURL(files[0])
+      this.image = files[0]
+    },
     async getEmployees(active = this.active) {
       try {
         let res = await axios.get(`/employee`);

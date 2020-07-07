@@ -78,10 +78,10 @@
       <v-toolbar-title v-text="bar.text"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-menu offset-y>
+        <v-menu offset-y >
           <v-btn
             slot="activator"
-            color="cyan accent-4"
+            color="light-blue darken-1"
             dark
           >
             <template v-if="$store.getters.user">
@@ -89,7 +89,7 @@
               <div>{{ $store.getters.user }}</div>
             </template>
           </v-btn>
-          <v-list>
+          <v-list >
             <v-list-tile :to="{name: 'profile'}">
               <v-icon>person</v-icon> Perfil
             </v-list-tile>
@@ -128,12 +128,12 @@ export default {
     bar() {
       if (process.env.NODE_ENV == 'production') {
         return {
-          color: `primary white--text`,
-          text: `PLATAFORMA VIRTUAL ADMINISTRATIVA`
+          color: `light-blue darken-3 yellow--text`,
+          text: `PASTELERIA Victoria'S`
         }
       } else {
         return {
-          color: `light-blue darken-3 white--text`,
+          color: `light-blue darken-3 yellow--text`,
           text: `PASTELERIA Victoria'S`
           //color: `error white--text`,
           //text: `PLATAFORMA VIRTUAL ADMINISTRATIVA (VERSIÓN DE PRUEBA)`

@@ -31,7 +31,7 @@ use \App\Helpers\Util;
         </div>
 
         <div class="header-left">
-            <img id="header-image" src="{{ public_path().'/img/logo.png'}}">
+            <img id="header-image" src="{{ public_path().'/img/logo1.jpg'}}">
         </div>
 
         <table align="center">

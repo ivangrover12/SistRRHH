@@ -15,7 +15,7 @@ use \App\Http\Controllers\Api\V1\PayrollController as Payroll;
     <body>
         <div>
             <div class="header-left">
-                <img id="header-image" src="{{ public_path().'/img/logo.png'}}">
+                <img id="header-image" src="{{ public_path().'/img/logo1.jpg'}}">
             </div>
             <div class="header-center">
                 <h2>

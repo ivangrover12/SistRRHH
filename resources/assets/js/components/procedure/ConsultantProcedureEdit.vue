@@ -288,7 +288,7 @@ export default {
     headers() {
       return [
         {
-          text: "Funcionario",
+          text: "Personal",
           value: "contract.employee.last_name"
         },
         {

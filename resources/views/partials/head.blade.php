@@ -20,7 +20,8 @@
 				font: italic bold 12pt arial, sans-serif;
 			}
 			.caja{
-				background: #D6E3BC;
+				background: #D6AF22;
+				
 				margin: 0 0 0 1.5cm;
 				padding: 2px 3px 2px 0;
 			}
@@ -29,11 +30,11 @@
     <body>
     	<div class="table">
 	        <div class="column1">
-	            <img src="{{ public_path("/img/logo.png") }}" width="200px">
+	            <img src="{{ public_path("/img/logo1.jpg") }}" width="200px">
 	        </div>
 	        <div class="column2">
 	        	<div class="caja">
-	        		MUTUAL DE SERVICIOS AL POLICIA "MUSERPOL"
+	        		PASTELERIA VICTORIA'S
 	        	</div>
 	        </div>
 	        <div style="clear: both;"></div>
