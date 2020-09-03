@@ -19,7 +19,7 @@
                   </v-layout>
                 </v-card>
               </v-flex>
-              <v-flex xs12 sm6 v-if="$store.getters.user != 'admin'">
+<!--               <v-flex xs12 sm6 v-if="$store.getters.user != 'admin'">
                 <v-card color="teal darken-4" dark :to="{ name: 'supplyRequestIndex', query: { requestType: 'user' }}" style="cursor: pointer" class="card-box">
                   <v-layout row wrap>
                     <v-flex xs4 class="text-xs-center" mt-4>
@@ -32,7 +32,7 @@
                     </v-flex>
                   </v-layout>
                 </v-card>
-              </v-flex>
+              </v-flex> -->
               <v-flex xs12 sm6 v-if="$store.getters.user != 'admin'">
                 <v-card color="blue darken-4" dark :to="{ name: 'departureIndex', query: {departureType: 'user'} }" style="cursor: pointer" class="card-box">
                   <v-layout row wrap>
@@ -191,6 +191,38 @@
         </v-layout>
       </v-container>
     </v-card>
+    <v-card>
+      <v-container fluid grid-list-md>
+        <v-toolbar>
+        <div>
+          <v-toolbar-title>Lista de Carnets Sanitarios Expirados o Por Expirar</v-toolbar-title>
+        </div>
+      </v-toolbar>
+        <v-data-table
+          :headers="headers"
+          :items="carnets"
+          :rows-per-page-items="[10,20,30,{text:'TODO',value:-1}]"
+          disable-initial-sort
+          class="elevation-1">
+          <template slot="items" slot-scope="props">
+            <tr>
+              <td class="text-xs-center"> {{ props.item.employee.first_name+' '+props.item.employee.second_name+' '+props.item.employee.last_name }} </td>
+              <td class="text-xs-center"> {{ format_date(props.item.emision) }}</td>
+              <td class="text-xs-center"> {{ format_date(props.item.conclusion) }} </td>
+              <td class="text-xs-center">
+                <v-chip color="red" text-color="white" v-if="props.item.estado == 'expirado'">Expirado</v-chip>
+                <v-chip color="warning" text-color="white" v-if="props.item.estado == 'pronto'">A punto de expirar</v-chip>
+              </td>
+            </tr>
+          </template>        
+          <template slot="no-data">
+            <v-alert slot="no-results" :value="true" color="info" icon="fa fa-times">
+              No hay carnets observados
+            </v-alert>
+          </template>
+      </v-data-table>
+      </v-container>
+    </v-card>
   </v-container>
 </template>
 <script>
@@ -217,11 +249,34 @@ export default {
           align: "center"
         },
       ],
+      headers: [
+        {
+          text: "Trabajador",
+          value: "employee.first_name",
+          align: "center"
+        },
+        {
+          text: "Fecha de emisión",
+          value: "emision",
+          align: "center"
+        },
+        {
+          text: "Fecha de conclusión",
+          value: "conclusion",
+          align: "center"
+        },
+        {
+          text: "Estado",
+          value: "respaldo",
+          align: "center"
+        },
+      ],
       phoneSearch: "",
       employees: [],
       filteredEmployees: [],
       procedures: [],
-      positionGroups: []
+      positionGroups: [],
+      carnets: []
     }
   },
   computed: {
@@ -236,6 +291,7 @@ export default {
     this.getEmployees()
     if (this.$store.getters.role == 'rrhh' || this.$store.getters.role == 'admin') this.getYearFaults()
     this.getLocations()
+    this.getCarnets()
   },
   methods: {
     async getLocations() {
@@ -276,7 +332,7 @@ export default {
                 })
                 obj.title = 'Contratos'
                 obj.icon = 'person'
-                obj.color = 'amber darken-2'
+                obj.color = 'amber darken-4'
                 /* obj.color = 'teal lighten-1' */
                 obj.downloadable = true
                 obj.role = null
@@ -342,6 +398,25 @@ export default {
         console.log(e)
       }
     },
+    async getCarnets(){
+      let ahora = new Date()
+      let res = await axios.get('/health_card')
+      let carnets_sanitarios = res.data
+      let two_week_ago = this.$moment(ahora).add('14', 'day')
+      carnets_sanitarios.forEach(item => {
+        if(this.$moment(item.conclusion) < this.$moment(ahora)){
+          item.estado = 'expirado'
+          this.carnets.push(item)
+        }
+        else if(this.$moment(item.conclusion) <= this.$moment(ahora).add('14', 'day')){
+          item.estado = 'pronto'
+          this.carnets.push(item)
+        }
+      })
+    },
+    format_date(fecha){
+      return this.$moment(fecha).format('DD-MM-YYYY')
+    }
   }
 };
 </script>

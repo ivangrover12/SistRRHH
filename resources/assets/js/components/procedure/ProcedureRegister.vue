@@ -24,7 +24,7 @@
       </v-btn>
     </template>
     <v-card>
-      <v-toolbar dark color="secondary">
+      <v-toolbar dark color="primary">
         <v-toolbar-title class="white--text">Días laborales</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark @click.native="close()">
@@ -51,7 +51,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
-          color="secondary"
+          color="primary"
           @click="storeProcedure"
           :disabled="!valid"
         >

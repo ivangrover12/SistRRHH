@@ -40,6 +40,31 @@
           first-day-of-week="1"
         ></v-date-picker>
       </v-menu>
+     <v-dialog
+        v-model="dialog"
+        width="500"
+        @keydown.esc="dialog = false"
+        v-if="this.procedure.pay_date"
+      >
+        <v-btn
+          slot="activator"
+          color="error"
+          dark
+        >
+          {{ message }} Planilla
+        </v-btn>
+        <v-card>
+          <v-card-text class="title">
+            ¿Esta seguro que desea {{ message }} la planilla?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="success" small @click="dialog = false"><v-icon small>check</v-icon> Cancelar</v-btn>
+            <v-btn color="error" small @click="closeProcedure"><v-icon small>close</v-icon> {{ message }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-dialog
         v-model="dialogDelete"
         width="500"
@@ -65,31 +90,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog
-        v-model="dialog"
-        width="500"
-        @keydown.esc="dialog = false"
-        v-if="this.procedure.pay_date"
-      >
-        <v-btn
-          slot="activator"
-          color="error"
-          dark
-        >
-          {{ message }} Planilla
-        </v-btn>
-        <v-card>
-          <v-card-text class="title">
-            ¿Esta seguro que desea {{ message }} la planilla?
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="success" small @click="dialog = false"><v-icon small>check</v-icon> Cancelar</v-btn>
-            <v-btn color="error" small @click="closeProcedure"><v-icon small>close</v-icon> {{ message }}</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+
       <v-flex xs2>
         <v-text-field
           class="pl-2 pr-2 ml-1 mr-1"
@@ -184,7 +185,7 @@
                 :disabled="!procedure.active"
               ></v-text-field>
             </td>
-            <td :class="withoutBorders" class="bordered">
+            <!-- <td :class="withoutBorders" class="bordered">
               <v-text-field
                 class="pl-2 pr-2 ml-1 mr-1"
                 v-validate="'required'"
@@ -194,10 +195,19 @@
                 @keyup.enter.native="savePayroll(props.item)"
                 :disabled="!procedure.active"
               ></v-text-field>
-            </td>
+            </td> -->
+
             <td :class="withoutBorders" class="bordered">
               <v-layout wrap v-if="procedure.active">
-                <v-flex xs6>
+                 <v-flex xs3>
+                  <v-tooltip top>
+                    <v-btn slot="activator" flat icon color="tertiary" @click="getChecks(props.item, false)">
+                      <v-icon>access_alarms</v-icon>
+                    </v-btn>
+                    <span>Atrasos Totales</span>
+                  </v-tooltip>
+                </v-flex>
+                <v-flex xs3>
                   <v-tooltip top>
                     <v-btn slot="activator" flat icon color="primary" @click="savePayroll(props.item)">
                       <v-icon>check</v-icon>
@@ -205,7 +215,15 @@
                     <span>Validar</span>
                   </v-tooltip>
                 </v-flex>
-                <v-flex xs6>
+                <!-- <v-flex xs3>
+                  <v-tooltip top>
+                    <v-btn slot="activator" flat icon color="secondary" @click="deletePayroll(props.item)">
+                      <v-icon>meeting_room</v-icon>
+                    </v-btn>
+                    <span>Permisos</span>
+                  </v-tooltip>
+                </v-flex> -->
+                <v-flex xs3>
                   <v-tooltip top>
                     <v-btn slot="activator" flat icon color="error" @click="deletePayroll(props.item)">
                       <v-icon>delete</v-icon>
@@ -266,6 +284,18 @@
         </v-container>
       </template>
     </v-data-table>
+    <v-dialog  v-model="dialog1"  max-width="590"  @keydown.esc="dialog1 = false">
+                <v-toolbar dark color="primary">
+                  <v-toolbar-title class="white--text">Minutos Atrasados "{{ disc.minutAttendance }}",Descuento total "{{ disc.discountAttendance }}"</v-toolbar-title>
+                </v-toolbar>
+    
+                       <!-- Formulario abstracto para extracción de archivos -->
+                    
+                      <v-card-actions class="headline grey lighten-2">
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" small @click="dialog1 = false"><v-icon small>check</v-icon> Aceptar</v-btn>
+                      </v-card-actions>
+     </v-dialog>
   </v-container>
 </template>
 
@@ -288,6 +318,7 @@ export default {
       bus: new Vue(),
       loading: true,
       dialog: false,
+      dialog1: false,
       dialogDelete: false,
       procedure: {
         active: true,
@@ -302,6 +333,7 @@ export default {
       },
       payrolls: [],
       contracts: [],
+      disc: {},
       search: "",
       menuDate: null,
       date: null,
@@ -360,14 +392,14 @@ export default {
           align: "center",
           sortable: false,
           class: ["ml-2", "mr-2", "pl-2", "pr-2"]
-        }, {
+        }, /* {
           text: `Saldo tributario`,
           tooltip:
             "Saldo tributario del mes anterior (Planilla tributaria. A-3)",
           align: "center",
           sortable: false,
           class: ["ml-2", "mr-2", "pl-2", "pr-2"]
-        }, {
+        },  */{
           text: `Acciones`,
           align: "center",
           value: "",
@@ -381,13 +413,11 @@ export default {
           class: ["ml-2", "mr-2", "pl-2", "pr-2"]
         }, {
           text: `Total descuentos`,
-          tooltip: `Renta vejez ${this.procedure.employee_discount.elderly *
+          tooltip: `Cotización mensual ${this.procedure.employee_discount.elderly *
             100}%, Riesgo común ${this.procedure.employee_discount.common_risk *
             100}%, Comisión ${this.procedure.employee_discount.comission *
             100}%, Aporte solidario del asegurado ${this.procedure
             .employee_discount.solidary *
-            100}%, Aporte Nacional solidario ${this.procedure.employee_discount
-            .national *
             100}% y Descuentos por Atrasos, Abandonos, Faltas y Licencia S/G Haberes`,
           align: "center",
           value: "",
@@ -457,6 +487,46 @@ export default {
         this.loading = false
       }
     },
+    async getChecks(item, print = false) {
+      try {
+        this.loading = true
+        this.dialog1 = true
+        let res = await axios.get(`employee/${item.employee_id}/attendance`, {
+          responseType: print ? 'arraybuffer' : 'json',
+          params: {
+            month: this.date,
+            type: print ? 'pdf' : 'json',
+            with_discounts: print
+          }
+        })
+        this.disc = res.data
+        console.log(this.disc)
+        console.log(res.data.Attendance)
+        //console.log(res.data.from)
+          //console.log(res.data.to)
+        /* if (print) {
+          let blob = new Blob([res.data], {
+            type: "application/pdf"
+          });
+          printJS(window.URL.createObjectURL(blob));
+        } else {
+          this.checks = res.data.checks
+          //console.log(this.checks)
+          this.limits = {
+            start: res.data.from,
+            end: res.data.to
+          }
+          this.getDepartures(id)
+           */
+        
+      } catch (e) {
+        //console.log('error en catch')
+        console.log(e)
+        this.checks = []
+      } finally {
+        this.loading = false
+      }
+    },
     deletePayroll(item) {
       this.bus.$emit("openDialogRemove", `/payroll/${item.id}`);
     },
@@ -483,7 +553,8 @@ export default {
       try {
         if (this.procedure.active) {
           await axios.patch(`/payroll/${payroll.id}`, {
-            unworked_days: parseInt(payroll.unworked_days),
+            //unworked_days: parseInt(payroll.unworked_days),
+            unworked_days: payroll.unworked_days,
             rc_iva: Number(payroll.rc_iva),
             faults: Number(payroll.faults),
             previous_month_balance: Number(payroll.previous_month_balance)

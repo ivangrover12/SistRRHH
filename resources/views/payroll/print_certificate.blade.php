@@ -34,7 +34,7 @@
             <p><span style="font-weight: bold">CERTIFICA:</span></p>
         </div>
         <div style="font-size: 13pt;margin-top: 10px" align="justify">
-            <p>Que, revisado el archivo de Sueldos y Salarios de la Mutual de Servicios al Policia, conforme a la disponibilidad de información de la Base de datos que cursa en esta Unidad, se establece que el señor(a):</p>
+            <p>Que, revisado el archivo de Sueldos y Salarios de la Empresa Pasteleria Victoria's, conforme a la disponibilidad de información de la Base de datos que cursa en esta Empresa, se establece que el señor(a):</p>
         </div>
         <div style="font-size: 13pt;margin-top: 10px" align="justify">
             <p><span style="font-weight: bold">{{ Util::fullName($contract->employee) }}</span>, con C.I. <span style="font-weight: bold">{{ Util::ciExt($contract->employee) }}</span>, {{ ($contract->act==true)?'actualmente ocupa':'ocupó' }} el cargo de <span style="font-weight: bold">{{ $contract->position->name }}</span>

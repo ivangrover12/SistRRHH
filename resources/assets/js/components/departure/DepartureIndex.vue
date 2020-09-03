@@ -2,6 +2,14 @@
   <v-container fluid>
     <template v-if="!this.manteinanceMode">
       <v-toolbar>
+        <div v-if="$route.query.departureType == 'all' && ($store.getters.role == 'rrhh' || $store.getters.role == 'admin')">
+          <v-toolbar-title>APROBACIÓN DE PERMISOS </v-toolbar-title>
+        </div>
+        <div v-else>
+          <v-toolbar-title>SOLICITUD DE PERMISOS</v-toolbar-title>
+        </div>
+      </v-toolbar>
+      <v-toolbar>
         <v-toolbar-title>
           <v-select
             v-model="departureTypeSelected"
@@ -16,22 +24,22 @@
           <v-icon slot="activator" class="ml-4">info</v-icon>
           <div>
             <v-alert :value="true" type="warning" class="black--text">PENDIENTE DE APROBACIÓN</v-alert>
-            <v-alert :value="true" type="error">RECHAZADO</v-alert>
-            <v-alert :value="true" type="info">SELECCIONADO</v-alert>
+            <v-alert :value="true" type="error" class="black--text">RECHAZADO</v-alert>
+            <v-alert :value="true" type="info" class="black--text">SELECCIONADO</v-alert>
           </div>
         </v-tooltip>
         <v-spacer></v-spacer>
         <div v-if="$store.getters.user != 'admin' && $route.query.departureType == 'user'" class="ml-4">
-          <v-chip
+          <!-- <v-chip
             v-if="!$store.getters.consultant" :color="remainingDepartures.monthly.time_remaining > 0 ? 'secondary' : 'red'" text-color="white"
             class="mr-3"
           >
             <v-avatar
-              class="body-2 font-weight-black"
+              class="body-2 font-weight-black"  
               :color="remainingDepartures.monthly.time_remaining > 0 ? 'primary' : 'error'"
-            >{{ remainingDepartures.monthly.time_remaining / 60 }}</v-avatar>
+            >{{ remainingDepartures.monthly.time_remaining }}</v-avatar>
             <div class="subheading font-weight-regular">Hrs/Mes</div>
-          </v-chip>
+          </v-chip> -->
           <v-chip
             v-if="!$store.getters.consultant" :color="remainingDepartures.annually.time_remaining > 0 ? 'accent' : 'red'" text-color="white"
             class="mr-3"
@@ -81,7 +89,7 @@
         class="elevation-1"
       >
         <template slot="items" slot-scope="props">
-          <tr :class="props.expanded ? 'info dark white--text' : (props.item.approved == null ? 'warning' : (props.item.approved == false ? 'error dark white--text' : ''))">
+          <tr :class="props.expanded ? 'info dark black--text' : (props.item.approved == null ? 'warning' : (props.item.approved == false ? 'error dark black--text' : ''))">
             <td class="text-xs-center bordered" @click="expand(props)" v-if="$route.query.departureType == 'all'">{{ `${props.item.last_name} ${props.item.mothers_last_name} ${props.item.first_name} ${props.item.second_name ? props.item.second_name : ''}` }}</td>
             <td class="text-xs-center bordered" @click="expand(props)">{{ departureType(props.item).group }}</td>
             <td class="text-xs-center bordered" @click="expand(props)">{{ departureType(props.item).reason }}</td>
@@ -89,6 +97,28 @@
             <td class="text-xs-center bordered" @click="expand(props)">{{ $moment(props.item.return).format('L [a horas] HH:mm') }}</td>
             <td class="text-xs-center bordered">
               <div v-if="$route.query.departureType == 'all' && ($store.getters.role == 'rrhh' || $store.getters.role == 'admin')">
+            
+              <a :href="props.item.adjunto" target="_blank"> 
+                
+                  <v-btn title="Ver su respaldo" small icon color="success" >
+                    <v-icon>remove_red_eye</v-icon>
+                  </v-btn>
+                
+                
+                </a>
+              
+                <v-tooltip top>
+                  <v-btn small icon slot="activator" color="secondary" @click.native="editItem(props.item)">
+                    <v-icon>add_photo_alternate</v-icon>
+                  </v-btn>
+                  <span>Subir el respaldo</span>
+                </v-tooltip>
+                  <!-- <v-btn slot="activator" small icon color="primary" @click.native="editItem(props.item)">
+                    <v-icon>add_photo_alternate</v-icon>
+                  </v-btn>
+                  <span>Subir archivo</span> -->
+                   
+                  
                 <v-tooltip top v-show="props.item.approved === null || props.item.approved === false">
                   <v-btn slot="activator" small icon color="primary" @click.native="switchActive(props.item.id, true)">
                     <v-icon>check</v-icon>
@@ -155,6 +185,31 @@
         :max="($route.query.departureType == 'user' && !$store.getters.consultant) ? $moment($store.getters.dateNow).add(1, 'months').format() : $store.getters.dateNow"
       ></v-date-picker>
     </v-dialog>
+    <v-dialog persistent v-model="dialog1"  max-width="390">
+                <v-toolbar dark color="primary">
+                  <v-toolbar-title class="white--text">Subir imagen de Respaldo</v-toolbar-title>
+                </v-toolbar>
+                      <v-text-field
+                          class="headline grey lighten-2" 
+                          label="Subir archivo"
+                          @click='onPickFile'
+                          v-model='fileName'
+                          prepend-icon="attach_file"
+                        ></v-text-field>
+                       <!-- Formulario abstracto para extracción de archivos -->
+                        <input
+                        type="file"
+                        style="display: none"
+                        ref="fileInput"
+                        accept="application/pdf, image/*"
+                        @change="onFilePicked">      
+                    
+                      <v-card-actions class="headline grey lighten-2">
+                        <v-spacer></v-spacer>
+                        <v-btn color="error" small @click.native="close"><v-icon>close</v-icon> Cancelar</v-btn>
+                      <v-btn color="primary" small :disabled="!valid" @click="save()" ><v-icon>check</v-icon> Guardar</v-btn>
+                      </v-card-actions>
+     </v-dialog>
   </v-container>
 </template>
 
@@ -181,6 +236,10 @@ export default {
       loading: true,
       bus: new Vue(),
       search: '',
+      dialog1: false,
+      valid: true,
+      selectedItem: {},
+      item: {},
       date: this.$store.getters.dateNow,
       showDate: false,
       departureTypeSelected: 'null',
@@ -200,6 +259,9 @@ export default {
         }
       ],
       departures: [],
+      fileName: '',
+      fileObject: null,
+      view: false,
       departureReasons: [],
       departureGroups: [],
       remainingDepartures: {
@@ -280,6 +342,7 @@ export default {
     }
   },
   mounted() {
+    this.view=false
     this.bus.$on('printDeparture', departureId => {
       this.print(departureId)
       this.getDeparture(departureId)
@@ -324,6 +387,14 @@ export default {
     }
   },
   methods: {
+    close() {
+      this.dialog1 = false;
+      /* this.$refs.form.reset()
+      this.bus.$emit("closeDialog");
+      this.selectedIndex = -1;
+      this.selectedItem = {} */
+      this.fileObject = null
+    },
     setHeaders() {
       if (this.$route.query.departureType == 'all'){
         if (this.headers.findIndex(o => o.text == 'Nombres') == -1) {
@@ -388,7 +459,10 @@ export default {
     async getRemainingDepartures() {
       try {
         let res = await axios.get(`employee/${this.$store.getters.id}`)
+        console.log(res)
         this.remainingDepartures = res.data.remaining_departures
+        console.log(this.remainingDepartures.monthly.time_remaining)
+        console.log(this.remainingDepartures.annually.time_remaining)
       } catch (e) {
         console.log(e)
       }
@@ -459,6 +533,64 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    onPickFile () {
+      this.$refs.fileInput.click()
+    },
+  
+    onFilePicked (event) {
+      const files = event.target.files
+      if (files[0] !== undefined) {
+        this.fileName = files[0].name
+        if (this.fileName.lastIndexOf('.') <= 0) {
+          return
+        }
+        // If valid, continue
+        const fr = new FileReader()
+        fr.readAsDataURL(files[0])
+        fr.addEventListener('load', () => {
+          this.url = fr.result
+          this.fileObject = files[0]
+          
+        })
+      } else {
+        this.fileName = ''
+        this.fileObject = null
+        this.url = ''
+      }
+    },
+    async save() {
+      try {
+        if (this.selectedItem) {
+            if(this.fileObject != null){
+              const data = new FormData()
+              data.append('file', this.fileObject)
+              let res = await axios.post('upload/adjunto', data)
+              this.selectedItem.adjunto = res.data
+              console.log(this.selectedItem)
+              console.log(this.selectedItem.id)
+          
+              await axios.patch(`departure/${this.selectedItem.id}`, this.selectedItem)
+            }
+            else{
+              await axios.patch(`departure/${this.selectedItem.id}`, this.selectedItem)
+            }
+          
+          this.toastr.success('Correcto.')
+          this.close();
+        }
+      } catch(e) {
+        console.log(e)
+      }
+    },
+    editItem(item) {
+       
+      this.selectedItem = item;
+      console.log(this.selectedItem);
+      this.dialog1 = true;
+    
+    //this.getEmployees()
+  
     },
     async getDeparture(id) {
       try {

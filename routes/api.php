@@ -7,6 +7,13 @@ Route::group([
   // Login
   Route::post('auth', 'Api\V1\AuthController@store')->name('login');
   Route::get('date', 'Api\V1\DateController@show')->name('date_now');
+  // Upload files
+  Route::post('upload/file', 'Api\V1\UploadController@file');
+  Route::post('upload/adjunto', 'Api\V1\UploadController@file3');
+  Route::post('upload/photo', 'Api\V1\UploadController@file1');
+  Route::post('upload/curriculum', 'Api\V1\UploadController@file2');
+  Route::post('upload/base64_image', 'Api\V1\UploadController@base64_image');
+  Route::post('upload/delete', 'Api\V1\UploadController@delete');
   // Public resource
   Route::get('payroll/faults/{year}', 'Api\V1\PayrollController@getYearFaults')->name('payroll_year_faults');
   Route::get('contract/last_contract/{employee_id}', 'Api\V1\ContractController@last_contract')->name('contract_last');
@@ -15,6 +22,8 @@ Route::group([
   Route::get('employee', 'Api\V1\EmployeeController@index')->name('employees_list');
   Route::get('employee/{id}/attendance', 'Api\V1\EmployeeController@attendance')->name('employees_attendance');
   Route::get('employee/{id}/departure', 'Api\V1\EmployeeController@departure')->name('employees_departure');
+  // Health Card
+  Route::apiResource('health_card', 'Api\V1\HealthCardController');
   // Position Group
   Route::get('position_group', 'Api\V1\PositionGroupController@index')->name('position_group_list');
   // Location
@@ -462,10 +471,10 @@ Route::group([
     });
 
     // ALMACENES routes
-    Route::group([
+    /* Route::group([
       'middleware' => 'role:admin|almacenes',
     ], function () {
       Route::resource('supply_request', 'Api\V1\SupplyRequestController')->only(['index', 'update']);
-    });
+    }); */
   });
 });

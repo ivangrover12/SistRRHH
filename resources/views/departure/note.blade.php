@@ -31,7 +31,7 @@ $consultant = $departure->employee->consultant();
           </th>
           <th class="w-50 text-right no-padding no-margins">
             <div class="text-right">
-              <img src="{{ public_path("/img/escudo_bolivia.gif") }}" class="w-25">
+
             </div>
           </th>
         </tr>

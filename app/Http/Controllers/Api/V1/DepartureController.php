@@ -124,6 +124,7 @@ class DepartureController extends Controller
   {
     $departure = Departure::findOrFail($id);
     $departure->fill($request->all());
+    //dd($departure,$request->all());
     $departure->save();
     return $departure;
   }
@@ -154,7 +155,7 @@ class DepartureController extends Controller
     }])->findOrFail($id));
 
     $file_name = implode('_', ['solicitud', 'salida', $data['departure']->employee->first_name, $data['departure']->employee->last_name, $departure->departure]) . '.pdf';
-
+ //dd($data['departure']->departure_reason->note);
     if ($data['departure']->departure_reason->note) {
       $options = [
         'orientation' => 'portrait',
@@ -234,12 +235,12 @@ class DepartureController extends Controller
   {
     $departure = Departure::findOrFail($id);
     $departure->destiny = $request->destiny;
-
+    //dd($departure->departure);
     $data = [
       'departure' => $departure,
       'transfers' => $request->transfers
     ];
-
+    //dd($data);
     $file_name = implode('_', ['solicitud', 'pasajes', $data['departure']->employee->first_name, $data['departure']->employee->last_name, $departure->departure]) . '.pdf';
 
     $options = [
@@ -259,4 +260,26 @@ class DepartureController extends Controller
 
     return $pdf->stream($file_name);
   }
+  public function verify_cite(Request $request)
+  {
+    $request->validate([
+      'cite' => 'required|string|min:2'
+    ]);
+    $departure = Departure::where(function($query) {
+      $query->orWhere('approved', true)->orWhere('approved', null);
+    })->whereCite($request['cite'])->first();
+    if (!$departure) {
+      return response()->json([
+        'message' => 'Valid cite',
+      ], 200);
+    } else {
+      return response()->json([
+        'message' => 'bad database formed',
+        'errors' => [
+          'type' => ['El CITE ya existe'],
+        ]
+      ], 409);
+    }
+  }
+
 }

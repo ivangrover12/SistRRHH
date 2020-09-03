@@ -1,7 +1,7 @@
 <template>
   <v-dialog persistent v-model="dialog" max-width="1100px" @keydown.esc="close" scrollable>
     <v-card>
-      <v-toolbar dark color="secondary">
+      <v-toolbar dark color="primary">
         <v-toolbar-title class="white--text">Haberes y aportes laborales - {{ fullName }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>        
@@ -38,7 +38,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" @click="close"><v-icon>close</v-icon> Cancelar</v-btn>
-        <v-btn color="success" :disabled="this.errors.any()" @click.prevent="print(`/payroll/print/certificate/${contract.employee_id}`)"><v-icon>check</v-icon> Imprimir</v-btn>
+        <v-btn color="primary" :disabled="this.errors.any()" @click.prevent="print(`/payroll/print/certificate/${contract.employee_id}`)"><v-icon>check</v-icon> Imprimir</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

@@ -29,10 +29,10 @@ Vue.use(Vuetify, {
     primary: "1B92CA",
     secondary: "#009686",
     tertiary: '#00FFEF',
-    //tertiary: '#FCE205',
+    //tertiary: '#FCE205', F51941 rojo el last
     accent: "#5381BD",
     info: "#0B347F",
-    error: "#F51941",
+    error: "#f98d86",
     danger: '#FA9347',
     warning: "#FFB339",
     success: "#FAE003", //amarillo

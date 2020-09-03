@@ -17,10 +17,10 @@
         </div>
       </v-tooltip>
       <v-spacer></v-spacer>
-      <v-btn  @click="getEmployees(false)" :class="!this.active ? 'primary white--text' : 'normal'" class="mr-0">
+      <v-btn  @click="getEmployees(false)" :class="!this.active ? 'primary white--text' : 'white'" class="mr-0">
         <div class="font-weight-regular subheading pa-2">ACTIVOS</div>
       </v-btn>
-      <v-btn  @click="getEmployees(true)" :class="this.active ? 'primary white--text' : 'normal'" class="ml-0">
+      <v-btn  @click="getEmployees(true)" :class="this.active ? 'primary white--text' : 'white'" class="ml-0">
         <div class="font-weight-regular subheading pa-2">INACTIVOS</div>
       </v-btn>
       <v-divider
@@ -97,6 +97,8 @@
         </tr>
       </template>
       <template slot="expand" slot-scope="{ item }">
+        <v-layout wrap>
+        <v-flex xs4 sm4 md4>
         <v-card>
           <v-card-text>
             <table>
@@ -106,6 +108,9 @@
                 </td>
                 <td>
                   <v-list-tile-content>{{ item.location }}</v-list-tile-content>
+                </td>
+                <td>
+
                 </td>
               </tr>
               <tr>
@@ -140,18 +145,50 @@
                   <v-list-tile-content>{{ item.landline_number }}</v-list-tile-content>
                 </td>
               </tr>
-              <tr>
-                <v-flex>
-                  <v-btn raised class="primary" @click="onPickFile">Cargar Imagen</v-btn>
-                  <input type="file" style="display: none" ref="fileInput" accept="img/*" @change="onFilePicked"> 
-                </v-flex>
-                <v-flex>
-                  <img :src="imageURL" height="150">
-                </v-flex>
-              </tr> 
             </table>
           </v-card-text>
         </v-card>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <v-flex xs4 sm4 md4>
+              <v-card  class="mx-auto"
+              width="344"
+              height="285"
+                outlined
+                align="center">
+                <v-card-title primary-title>
+              
+                <div class="headline">FOTO DE {{ item.first_name }}</div> 
+               
+               </v-card-title>
+               <a :href="item.photo" target="_blank">
+               <v-img width="50%" height="180" :src="item.photo"/>
+               </a>
+               </v-card>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <v-flex xs4 sm4 md4>
+              <v-card  class="mx-auto"
+              width="344"
+              height="285"
+                outlined
+                align="center">
+                <v-card-title primary-title>
+              
+                <div class="headline">CURRICULUM DE {{ item.first_name }}</div> 
+               
+               </v-card-title>
+               <br /><br />
+               <a :href="item.curriculum" target="_blank">
+                <v-avatar>
+                <img
+                  :src="item.photo"
+                  alt="John">
+              </v-avatar>
+              </a>
+               </v-card>
+      </v-flex>
+      </v-layout>
       </template>
       <v-alert slot="no-results" :value="true" color="error">
         La búsqueda de "{{ search }}" no encontró resultados.
@@ -181,6 +218,7 @@ export default {
       loading: true,
       bus: new Vue(),
       startIndex: 0,
+      table: [],
       dialog: false,
       active: false,
       employeesActive: [],
@@ -250,23 +288,7 @@ export default {
     });
   },
   methods: {
-    onPickFile() {
-      this.$refs.fileInput.click()
-    },
-    onFilePicked (event) {
-      const files = event.target.files
-      
-      let filename = files[0].name;
-      if (filename.lastIndexOf('.') <= 0) {
-        return alert ('Porfavor adiciona el archivo correcto');
-      }
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => {
-        this.imageURL = fileReader.result
-      })
-      fileReader.readAsDataURL(files[0])
-      this.image = files[0]
-    },
+    
     async getEmployees(active = this.active) {
       try {
         let res = await axios.get(`/employee`);
@@ -313,7 +335,7 @@ export default {
         employee.nua_cua == null ||
         employee.account_number == null
       ) {
-        return "error white--text";
+        return "error black--text";
       } else if (
         employee.location == null ||
         employee.zone == null ||
@@ -324,7 +346,7 @@ export default {
       } else if (
         employee.consultant == null
       ) {
-        return "info white--text";
+        return "info black--text";
       } else {
         return "";
       }

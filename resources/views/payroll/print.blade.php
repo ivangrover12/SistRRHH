@@ -21,7 +21,7 @@ use \App\Http\Controllers\Api\V1\PayrollController as Payroll;
                 <h2>
                     {{ implode(' - ', array_filter([$title->name, $title->subtitle, $title->management_entity, $title->position_group, $title->employer_number])) }}
                 </h2>
-                <h3>PERSONAL EVENTUAL -
+                <h3>PERSONAL -
                 MES {{ $title->month }} DE {{ $title->year }}</h3>
                 <h3>(EXPRESADO EN BOLIVIANOS)</h3>
             </div>
@@ -74,7 +74,7 @@ use \App\Http\Controllers\Api\V1\PayrollController as Payroll;
                     <th width="2%">C.I.</th>
                     <th width="10%">TRABAJADOR</th>
                 @if ($title->report_type == 'T')
-                    <th width="2%">SUENDO NETO</th>
+                    <th width="2%">SUELDO NETO</th>
                     <th width="2%">Minimo No imponible</th>
                     <th width="2%">Diferencia sujeto a impuestos</th>
                     <th width="2%">Impuesto 13% Debito Fiscal</th>
@@ -338,7 +338,7 @@ use \App\Http\Controllers\Api\V1\PayrollController as Payroll;
                         @endif
                         @break
                 @endswitch
-                <td class="footer" colspan="{{ $table_footer_space1 }}">TOTAL PLANILLA ({{ count($employees) == 0 ? 0 : $index }} {{ count($employees) == 0 ? 'FUNCIONARIOS' : ($index == 1 ? 'FUNCIONARIO' : 'FUNCIONARIOS')}})</td>
+                <td class="footer" colspan="{{ $table_footer_space1 }}">TOTAL PLANILLA ({{ count($employees) == 0 ? 0 : $index }} {{ count($employees) == 0 ? 'EMPLEADOS' : ($index == 1 ? 'EMPLEADO' : 'EMPLEADOS')}})</td>
                 @if ($title->report_type == 'H')
                     <td class="footer">{{ Util::format_number($total_discounts->base_wage) }}</td>
                     <td class="footer">{{ Util::format_number($total_discounts->quotable) }}</td>

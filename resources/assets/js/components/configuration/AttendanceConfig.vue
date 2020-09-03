@@ -81,10 +81,10 @@ export default {
     loading: false,
     schedules: [],
     headers: [
-      { align: "center", sortable: false, text: "Ingreso", class: ["ma-0", "pa-0"], value: "start_hour" },
-      { align: "center", sortable: false, text: "Salida", class: ["ma-0", "pa-0"], value: "end_hour" },
-      { align: "center", sortable: false, text: "Límite mínimo", class: ["ma-0", "pa-0"], value: "start_hour_min_limit" },
-      { align: "center", sortable: false, text: "Límite máximo", class: ["ma-0", "pa-0"], value: "end_hour_max_limit" },
+      { align: "center", sortable: false, text: "Limite Ingreso Maximo", class: ["ma-0", "pa-0"], value: "start_hour" },
+      { align: "center", sortable: false, text: "Limite Salida Minimo", class: ["ma-0", "pa-0"], value: "end_hour" },
+      { align: "center", sortable: false, text: "Límite Ingreso Mínimo", class: ["ma-0", "pa-0"], value: "start_hour_min_limit" },
+      { align: "center", sortable: false, text: "Límite Salida máximo", class: ["ma-0", "pa-0"], value: "end_hour_max_limit" },
       { align: "center", sortable: false, text: "Días laborales", class: ["ma-0", "pa-0"], value: "workdays" },
       { align: "center", sortable: false, text: "Acciones", class: ["ma-0", "pa-0"], value: "id" }
     ]

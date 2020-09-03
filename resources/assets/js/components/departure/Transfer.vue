@@ -16,7 +16,7 @@
     </template>
     <template>
       <v-card>
-        <v-toolbar dark color="secondary">
+        <v-toolbar dark color="primary">
           <v-toolbar-title class="white--text">Solicitud de Pasajes - {{ departure.id }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon dark @click.native="close">
@@ -136,7 +136,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="error" @click.native="close"><v-icon class="mr-2">close</v-icon> Cancelar</v-btn>
-          <v-btn color="success" :disabled="this.errors.any()" @click.native="print"><v-icon class="mr-2">print</v-icon> Imprimir</v-btn>
+          <v-btn color="primary" :disabled="this.errors.any()" @click.native="print"><v-icon class="mr-2">print</v-icon> Imprimir</v-btn>
         </v-card-actions>
       </v-card>
     </template>

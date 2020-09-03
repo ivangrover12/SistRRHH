@@ -11,7 +11,7 @@
     </v-tooltip>
 
     <v-card>
-      <v-toolbar dark color="secondary">
+      <v-toolbar dark color="primary">
         <v-toolbar-title class="white--text">Solicitud de Salida<span v-if="reasonSelected.name"> - {{ reasonSelected.name }}</span></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark @click.native="closeDialog">

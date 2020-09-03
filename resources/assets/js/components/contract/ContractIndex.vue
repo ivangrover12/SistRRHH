@@ -5,18 +5,23 @@
       <v-tooltip color="white" role="button" bottom>
         <v-icon slot="activator" class="ml-4">info</v-icon>
         <div>
-          <v-alert :value="true" type="error">CONTRATOS VIGENTES QUE CULMINAN ESTE MES</v-alert>
-          <v-alert :value="true" type="warning" class="black--text">CONTRATOS NO VIGENTES QUE DEBIAN CULMINAR ESTE MES</v-alert>
-          <v-alert color="danger" :value="true" type="info" class="black--text">CONTRATOS NO VIGENTES QUE CULMINAN ESTE MES</v-alert>
+          <v-alert v-if="active1" :value="true" type="error">CONTRATOS VIGENTES QUE CULMINAN ESTE MES</v-alert>
+          <v-alert v-if="active" :value="true" type="error">CONTRATOS VIGENTES QUE CULMINAN ESTE MES</v-alert>
+          <v-alert  v-if="!active" :value="true" type="warning" class="black--text">CONTRATOS NO VIGENTES QUE DEBIAN CULMINAR ESTE MES</v-alert>
+          <v-alert v-if="!active" color="danger" :value="true" type="info" class="black--text">CONTRATOS NO VIGENTES QUE CULMINAN ESTE MES</v-alert>
         </div>
       </v-tooltip>
       <v-spacer></v-spacer>
-      <v-btn @click="getContracts(true)" :class="active ? 'primary white--text' : 'normal'" class="mr-0">
+      <v-btn @click="getContracts(true)" :class="active ? 'primary white--text' : 'white'" class="mr-0">
         <div class="font-weight-regular subheading pa-2">VIGENTES</div>
       </v-btn>
-      <v-btn @click="getContracts(false)" :class="!active ? 'primary white--text' : 'normal'" class="ml-0">
+      <v-btn @click="getContracts(false)" :class="!active ? 'primary white--text' : 'white'" class="ml-0">
+        <div class="font-weight-regular subheading pa-2">DADOS DE BAJA</div>
+      </v-btn>
+        <v-btn @click="getContracts1(true)" :class="active1 ? 'blue darken-4 white--text' : 'white'" class="ml-0">
         <div class="font-weight-regular subheading pa-2">TODOS</div>
       </v-btn>
+      
       <v-divider
         class="mx-2"
         inset
@@ -72,16 +77,19 @@
             </v-tooltip>
           </td>
           <td :class="(checkEnd(props.item) != '' ? 'bordered' : '') + withoutBorders" class="justify-center layout" v-if="$store.getters.role != 'financiera'">
-            <v-menu offset-y>
-              <v-btn :class="withoutBorders" slot="activator" flat icon color="info">
+            <!-- <v-menu offset-y> -->
+              <v-tooltip top v-if="$store.getters.role == 'juridica' || $store.getters.role == 'admin'" slot="activator">
+              <v-btn :class="withoutBorders" slot="activator" @click="print(props.item, 'printEventual')"  flat icon color="info">
                 <v-icon>print</v-icon><v-icon small>arrow_drop_down</v-icon>
               </v-btn>
-              <v-list>
+              <span>Imprimir</span>
+              </v-tooltip>
+<!--               <v-list>
                 <v-list-tile @click="print(props.item, 'printEventual')" v-if="$store.getters.role == 'juridica' || $store.getters.role == 'admin'"> Contrato</v-list-tile>
                 <v-list-tile @click="print(props.item, 'printUp')" v-if="$store.getters.role == 'rrhh' || $store.getters.role == 'admin'"> Alta del seguro</v-list-tile>
                 <v-list-tile @click="print(props.item, 'printLow')" v-if="$store.getters.role == 'rrhh' || $store.getters.role == 'admin'"> Baja del seguro</v-list-tile>
-              </v-list>
-            </v-menu>
+              </v-list> -->
+            <!-- </v-menu> -->
             <v-tooltip top v-if="['rrhh', 'admin'].includes($store.getters.role) && checkEnd(props.item) != '' && props.item.active == true">
               <v-btn :class="withoutBorders" slot="activator" flat icon color="info" @click="editItem(props.item, 'recontract')">
                 <v-icon>autorenew</v-icon>
@@ -147,6 +155,7 @@ export default {
       withoutBorders: ' ml-0 mr-0 pl-0 pr-0',
       loading: true,
       active: true,
+      active1: false,
       bus: new Vue(),
       headers: [
         {
@@ -185,6 +194,7 @@ export default {
         }
       ],
       contracts: [],
+      contracts1: [],
       search: "",
       switch1: true,
       contracState: "vigentes",
@@ -224,6 +234,24 @@ export default {
             return obj.active === true;
           });
         }
+        else {
+          this.contracts = this.contracts.filter(obj => {
+            return obj.active === false;
+          });
+        }
+        this.active1 = false
+        this.loading = false
+      } catch (e) {
+        console.log(e);
+      }
+    },
+      async getContracts1(active1 = this.active1) {
+      try {
+        this.active1 = active1;
+        let res = await axios.get(`/contract`);
+        this.contracts = res.data
+        
+        this.active= false
         this.loading = false
       } catch (e) {
         console.log(e);

@@ -2,6 +2,7 @@ import Login from './components/auth/Login'
 import Profile from './components/auth/Profile'
 import Employee from './components/employee/EmployeeIndex'
 import Company from './components/company/CompanyIndex'
+import HealthCard from './components/health_card/HealthCardIndex'
 import Contract from './components/contract/ContractIndex'
 import Consultant from './components/contract/ConsultantIndex'
 import Procedure from './components/procedure/ProcedureIndex'
@@ -45,6 +46,13 @@ export const routes = [
     path: '/employee',
     component: Employee,
     name: 'employeeIndex',
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/healthcard',
+    component: HealthCard,
+    name: 'healthCardIndex',
     meta: {
       requiresAuth: true
     }

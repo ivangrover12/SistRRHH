@@ -6,7 +6,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" small @click="close"><v-icon small>check</v-icon> Cancelar</v-btn>
+        <v-btn color="primary" small @click="close"><v-icon small>check</v-icon> Cancelar</v-btn>
         <v-btn color="error" small @click="remove"><v-icon small>close</v-icon> Eliminar</v-btn>
       </v-card-actions>
     </v-card>

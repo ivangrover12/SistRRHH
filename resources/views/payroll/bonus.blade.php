@@ -35,7 +35,7 @@ use \App\Helpers\Util;
                 <h2>
                     {{ $title->name }}
                 </h2>
-                <h3>PERSONAL EVENTUAL - {{ $title->subtitle }} {{ $title->year }}</h3>
+                <h3>PERSONAL  - {{ $title->subtitle }} {{ $title->year }}</h3>
                 @if ($split_percentage)
                     <h3>CÁLCULO SOBRE EL 100%
                     @if ($lower_limit_wage)
@@ -148,7 +148,7 @@ use \App\Helpers\Util;
                     <h2>
                         {{ $title->name }}
                     </h2>
-                    <h3>PERSONAL EVENTUAL - {{ $title->subtitle }} {{ $title->year }}</h3>
+                    <h3>PERSONAL - {{ $title->subtitle }} {{ $title->year }}</h3>
                     <h3>CÁLCULO SOBRE EL {{ $percentage }}%
                         @if ($lower_limit_wage)
                             PARA SALARIOS MAYORES A {{ $lower_limit_wage }}
@@ -230,7 +230,7 @@ use \App\Helpers\Util;
                     @endforeach
                     @if (count($employees) > 0)
                         <tr class="total">
-                            <td class="footer" colspan="19">TOTAL PLANILLA ({{ $index }} {{ ($index == 1) ? 'FUNCIONARIO' : 'FUNCIONARIOS'}})</td>
+                            <td class="footer" colspan="19">TOTAL PLANILLA ({{ $index }} {{ ($index == 1) ? 'TRABAJADOr' : 'TRABAJADORES'}})</td>
                             <td class="footer">{{ Util::format_number($total) }}</td>
                         </tr>
                     @endif

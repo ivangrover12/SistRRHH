@@ -102,7 +102,7 @@
                       <div class="caption">Registrar</div>
                     </v-btn>
                     <v-card>
-                      <v-toolbar dark color="secondary">
+                      <v-toolbar dark color="primary">
                         <v-toolbar-title class="white--text">{{ 'id' in bonusProcedure ? 'Editar Aguinaldo' : 'Registrar Aguinaldo' }}</v-toolbar-title>
                       </v-toolbar>
                       <v-card-text>
@@ -279,7 +279,7 @@
                       style="max-height: 360px"
                       class="scroll-y"
                     >
-                      <!-- <v-list
+<!--                       <v-list
                         v-for="(item, index) in templateTypes"
                         v-bind:item="item"
                         v-bind:index="index"
@@ -290,13 +290,13 @@
                           <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=${item}&report_name=B-${index}&valid_contracts=1&with_account=1`)">
                             <span class="caption">B-{{ ++index }} ({{ item }}.)</span>
                           </v-list-tile>
-                        </div> -->
-                        <!-- <div v-else-if="item == 'P'">
+                        </div> 
+                        <div v-else-if="item == 'P'">
                           <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=P&report_name=B-2&valid_contracts=0&with_account=0&management_entity=0&position_group=0&employer_number=1`)">
                             <span class="caption">B-{{ ++index }} ({{ item }}.)</span>
                           </v-list-tile>
-                        </div> -->
-                      </v-list>
+                        </div> 
+                      </v-list> --> 
                       <v-list
                         v-for="(item, index) in templateTypes"
                         v-bind:item="item"
@@ -307,12 +307,12 @@
                           <span class="caption">A-{{ ++index }} ({{ item }}.)</span>
                         </v-list-tile>
                       </v-list>
-<!--                        <v-list>
+<!--                       <v-list>
                         <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=S&report_name=S-1&valid_contracts=0&with_account=0`)">
                           <span class="caption">S-1 (S.)</span>
                         </v-list-tile>
-                      </v-list>  -->
-<!--                       <v-list>
+                      </v-list> --> 
+<!--                      <v-list>
                         <v-list-tile @click="print(`/payroll/print/pdf/${procedure.year}/${procedure.month_order}?report_type=T&report_name=A-3&valid_contracts=0&with_account=0`)">
                           <span class="caption">A-3 (T.)</span>
                         </v-list-tile>
@@ -368,7 +368,7 @@
                             <span>#Empleador: {{ e.number }}</span>
                           </v-tooltip>
                         </div> -->
-                      </v-list>
+                      <!-- </v-list> -->
                     </v-card>
                   </v-menu>
                 </v-card-actions>

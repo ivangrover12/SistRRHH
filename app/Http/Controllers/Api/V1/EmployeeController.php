@@ -72,16 +72,19 @@ class EmployeeController extends Controller
   public function show(Request $request, $id)
   {
     $employee = Employee::findOrFail($id);
-
-    if (!$request->has('departure_reason')) {
-      $request['departure_reason'] = DepartureReason::whereName('CON GOCE DE HABERES')->first()->id;
+    
+    if (!$request->has('departure_reason1')) {
+      $request['departure_reason1'] = DepartureReason::whereName('CON GOCE DE HABERES')->first()->id;
     }
-
+    if (!$request->has('departure_reason')) {
+      $request['departure_reason'] = DepartureReason::whereName('PERMISO POR HORAS')->first()->id;
+    }
+    //dd($request['departure_reason']);
     $employee->remaining_departures = [
-      'monthly' => $employee->monthly_remaining_departures(),
-      'annually' => $employee->annually_remaining_departures($request['departure_reason'])
+      'monthly' => $employee->monthly_remaining_departures($request['departure_reason']),
+      'annually' => $employee->annually_remaining_departures($request['departure_reason1'])
     ];
-
+    //dd($employee);
     return $employee;
   }
 
@@ -185,8 +188,10 @@ class EmployeeController extends Controller
 
   public function attendance(Request $request, $id)
   {
-    //dd($id);
+    //dd($request->all());
     $employee = Employee::findOrFail($id);
+    $descuento = 0;
+    $minut = 0;
     //dd($employee);
     $attendance_user = AttendanceUser::where('SSN', 'like', $employee->identity_card . '%')->orderBy('USERID', 'DESC')->first();
     $date_range = $this->date_range($request, $employee);
@@ -243,6 +248,8 @@ class EmployeeController extends Controller
           $check->shift = $attendance->shift;
           if ($attendance->delay->minutes > 0) {
             $check->color = 'red';
+            $minut = $attendance->delay->minutes+$minut;
+            $descuento = $attendance->delay->discount+$descuento;
           } else {
             if ($attendance->type == 'I') {
               $check->color = 'green';
@@ -251,15 +258,18 @@ class EmployeeController extends Controller
             }
           }
         }
+        
         unset($check->checktime);
       }
-      
+      //dd($descuento,$minut);
       $data = [
         'from' => $from->toDateString(),
         'to' => $to->toDateString(),
-        'checks' => $with_discounts ? Util::filter_checks($checks) : collect(array_unique($checks->all()))->values()
+        'checks' => $with_discounts ? Util::filter_checks($checks) : collect(array_unique($checks->all()))->values(),
+        'minutAttendance' => $minut,
+        'discountAttendance' => $descuento
       ];
-      //dd($with_discounts=true);
+      
       if ($with_discounts=true) {
         $data['employee'] = $employee;
       }

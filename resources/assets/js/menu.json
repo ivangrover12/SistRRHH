@@ -11,12 +11,19 @@
     "icon": "group",
     "permission": "read-employee",
     "params": {}
+  }, 
+  {
+    "href": "healthCardIndex",
+    "title": "Carnets Sanitarios",
+    "icon": "event",
+    "permission": "read-employee",
+    "params": {}
   }, {
     "href": "contractIndex",
     "title": "Contratos",
     "icon": "person",
     "permission": "read-eventual"
-  }, {
+  },  {
     "href": "procedureIndex",
     "title": "Planillas",
     "icon": "work",

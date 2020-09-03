@@ -5,7 +5,7 @@
       <span>Nuevo Contrato</span>
     </v-tooltip>
     <v-card>
-      <v-toolbar dark color="secondary">
+      <v-toolbar dark color="primary">
         <v-toolbar-title class="white--text">{{ formTitle }} <span v-if="recontract==true||selectedIndex!=-1"> - {{ fullName(tableEmployee) }} </span></v-toolbar-title>
       </v-toolbar>
       <v-card-text>
@@ -391,8 +391,8 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" @click.native="close"><v-icon>close</v-icon> Cancelar</v-btn>
-        <v-btn color="success" :disabled="this.errors.any() || !valid || tableEmployeeFree==1 || tablePositionFree==1" @click="save()" v-if="recontract==false"><v-icon>check</v-icon> Guardar</v-btn>
-        <v-btn color="success" :disabled="!valid" @click="saveRecontract()" v-if="recontract==true"><v-icon>done_all</v-icon> Recontratar</v-btn>
+        <v-btn color="primary" :disabled="this.errors.any() || !valid || tableEmployeeFree==1 || tablePositionFree==1" @click="save()" v-if="recontract==false"><v-icon>check</v-icon> Guardar</v-btn>
+        <v-btn color="primary" :disabled="!valid" @click="saveRecontract()" v-if="recontract==true"><v-icon>done_all</v-icon> Recontratar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

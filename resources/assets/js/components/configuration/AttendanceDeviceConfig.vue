@@ -18,7 +18,7 @@
           <td class="text-md-center">{{ props.item.MachineNumber }}</td>
           <td class="text-md-center">{{ props.item.sn }}</td>
           <td class="text-md-center">
-            <v-icon v-if="Boolean(Number(props.item.Enabled))" color="success">check_circle</v-icon>
+            <v-icon v-if="Boolean(Number(props.item.Enabled))" color="primary">check_circle</v-icon>
             <v-icon v-else color="error">error</v-icon>
           </td>
           <td class="text-md-center">
@@ -51,7 +51,7 @@
       @keydown.esc="closeDialog"
     >
       <v-card>
-        <v-toolbar dark color="secondary">
+        <v-toolbar dark color="primary">
           <v-toolbar-title class="white--text">Hora del dispositivo</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
@@ -69,7 +69,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="error" @click.native="closeDialog"><v-icon>close</v-icon> Cancelar</v-btn>
-          <v-btn color="success" @click.native="updateDevice"><v-icon>check</v-icon> Guardar</v-btn>
+          <v-btn color="primary" @click.native="updateDevice"><v-icon>check</v-icon> Guardar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

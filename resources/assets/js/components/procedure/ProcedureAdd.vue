@@ -5,7 +5,7 @@
       <span>Añadir planilla</span>
     </v-tooltip>
     <v-card>
-      <v-toolbar dark color="secondary">
+      <v-toolbar dark color="primary">
         <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text class="text-xs-center">

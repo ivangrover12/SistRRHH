@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       bus: new Vue,
-      sources: ["Roles", "Permisos", "LDAP"],
+      sources: ["Roles", "Permisos"],
       sourceSelected: "",
       message: {
         employees: {

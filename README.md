@@ -1,6 +1,6 @@
 # PLATAFORMA VIRTUAL ADMINISTRATIVA - MÓDULO DE RECURSOS HUMANOS
 
-Sistema de administración de funcionarios, contratos y gestión de planillas.
+Sistema de administración de empleados, contratos y gestión de planillas.
 
 ### Documentación
 
