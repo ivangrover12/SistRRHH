@@ -3,12 +3,12 @@
     <template v-if="!loading">
       <v-toolbar>
         <v-toolbar-title>
-          Datos Institucionales
+          Datos de la Empresa
         </v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
       <CompanyEdit/>
-      <v-toolbar class="mt-4">
+      <!-- <v-toolbar class="mt-4">
         <v-toolbar-title>
           Números de Empleador
         </v-toolbar-title>
@@ -22,8 +22,8 @@
         </v-tooltip>
         <v-spacer></v-spacer>
         <EmployerNumberAdd v-show="employerNumbers.length <= maxEmployerNumbers" ref="EmployerNumberAdd" @updateEmployerNumbersList="updateEmployerNumbersList"/>
-      </v-toolbar>
-      <v-data-iterator
+      </v-toolbar> -->
+      <!-- <v-data-iterator
         :rows-per-page-items="[maxEmployerNumbers]"
         :total-items="maxEmployerNumbers"
         :items="employerNumbers"
@@ -74,7 +74,7 @@
           </v-flex>
         </template>
         <template v-slot:footer></template>
-      </v-data-iterator>
+      </v-data-iterator> -->
     </template>
     <Loading v-else/>
     <RemoveItem :bus="bus"/>

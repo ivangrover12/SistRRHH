@@ -1,20 +1,15 @@
-# MANUAL DE USUARIO DE PLATAFORMA VIRTUAL ADMINISTRATIVA - MUSERPOL
+# MANUAL DE USUARIO DE PASTELERIA VICTORIA'S PLATAFORMA VIRTUAL ADMINISTRATIVA
 
 ## INGRESO AL SISTEMA.
 
-Este sistema es compatible con los navegadores Firefox y Chrome, para acceder al sistema se debe acceder al enlace:
-[http://pva.muserpol.gob.bo](http://pva.muserpol.gob.bo).
+Este sistema es compatible con los navegadores Firefox y Chrome,
 Una vez dentro se deben ingresar las credenciales en los campos de usuario y contraseña adquiridas por el responsable de la Unidad de Sistemas y Soporte Técnico.
 
 ![IMAGE](./img/login.png)
 
 #### CAMBIO DE CONTRASEÑA
 
-La primera acción a tomar es cambiar la contraseña proporcionada por el responsable de la Unidad de Sistemas y Soporte Técnico, esta acción se debe ejecutar en la [Intranet de la institución](intranet.muserpol.gob.bo):
-
-![IMAGE](./img/intranet.png)
-
-A continuación debe hacer click en la opción de *CAMBIAR CONTRASEÑA* y llenar los campos requeridos.
+La primera acción a tomar es cambiar la contraseña proporcionada por el responsable de la Unidad de Sistemas y Soporte Técnico,debe hacer click en la opción de *CAMBIAR CONTRASEÑA* y llenar los campos requeridos.
 
 ![IMAGE](./img/cambiar_password.png)
 
@@ -29,7 +24,7 @@ Debe llenar el formulario que anterior, de la siguiente manera:
 
 Después del login, debe hacer click en el botón ubicado en la parte superior derecha de la ventana con el nombre de usuario ADMIN, esta acción abrirá el menú lateral:
 
-![IMAGE](./img/menu_top_profile.png)
+![IMAGE](./img/menu_top_close.png)
 
 A continuación debe hacer click en la opción de Perfil que se muestra a continuación.
 
@@ -49,27 +44,16 @@ Para salir de la sesión actual bastará con hacer click en la opción Cerrar Se
 
 Esta primera ventana muestra el resumen de:
 
-* Personal eventual activo e inactivo, y nuevos ingresos y bajas del mes
-* Consultores activos e inactivos, y nuevos ingresos y bajas del mes
+* Acceso al registro de Asistencia
+* Acceso directo a Permisos y Licencias
+* Cumpleañeros del mes
 * Personal sin contrato o con contrato vencido
 * Recaudación del fondo social y detalle mensual hasta la fecha de acuerdo a las planillas generadas
-* Cumpleañeros del mes
+* Lista de carnets sanitarios expirados o por expirar
 
 Cada resumen tiene la opción de descarga en formato CSV editable como hoja de cálculo.
 
 ## GESTIÓN DE PERSONAL
-
-![IMAGE](./img/list_employee.png)
-
-Esta vista contiene las siguientes opciones:
-
-- **1)** Filtro de empleados según contrato, eventuales, consultores y sin contrato actual.
-
-![IMAGE](./img/filter_employee.png)
-
-- **2)** Filtro de empleados activos e inactivos
-- **3)** Caja de búsqueda de acuerdo a los campos mostrados en la lista
-- **4)** Opción para registrar una nueva persona
 
 ![IMAGE](./img/form_employee.png)
 
@@ -81,7 +65,7 @@ Por otra parte, cada registro cuenta con 4 opciones:
 
 ![IMAGE](./img/options_employee.png)
 
-- **1)** Dar de baja a un funcionario, éste registro será visible en la pestaña de *INACTIVOS*
+- **1)** Dar de baja a un trabajador, éste registro será visible en la pestaña de *INACTIVOS*
 - **2)** Editar los datos del funcionario
 - **3)** Imprimir el Certificado de Haberes y Aportes Laborales
 
@@ -96,15 +80,13 @@ La lista de empleados cuenta con un código de 4 colores que ayuda a completar e
 - **ROJO**: El funcionario no tiene cuenta bancaria o número NUA/CUA registrados
 - **BLANCO**: el funcionario cuenta con todos los datos registrados
 
-## GESTIÓN DE PERSONAL EVENTUAL
+### GESTIÓN DE CONTRATOS DE PERSONAL
 
-### GESTIÓN DE CONTRATOS DE PERSONAL EVENTUAL
-
-![IMAGE](./img/employee_contract_menu.png)
+![IMAGE](./img/menu_departure.png)
 
 ![IMAGE](./img/list_contract.png)
 
-En la pestaña de contratos eventuales se despliegan 4 opciones:
+En la pestaña de contratos se despliegan 4 opciones:
 
 - **1)** Filtro para mostrar contratos activos o inactivos
 - **2)** Búsqueda de acuerdo a los parámetros mostrados en pantalla
@@ -119,7 +101,7 @@ En la pestaña de contratos eventuales se despliegan 4 opciones:
   * Editar contrato
   * Eliminar, visible solo en caso de que el contrato no figure en ninguna planilla
 
-### GESTIÓN DE PLANILLAS DE PERSONAL EVENTUAL
+### GESTIÓN DE PLANILLAS DE PERSONAL
 
 ![IMAGE](./img/list_procedure.png)
 
@@ -146,17 +128,7 @@ Las planillas mensuales cuentan con las opciones de:
 * Descargar archivo TXT para débito automático en Banco
 * Descargar archivo CSV para declaración en la ![Oficina Virtual de Trámites del Ministerio de Trabajo](https://ovt.mintrabajo.gob.bo)
 * Descargar registro de novedades para las AFPs
-* Imprimir planillas filtradas de acuerdo a los formatos establecidos en MUSERPOL
-
-![IMAGE](./img/bonus_print.png)
-
-Las planillas de aguinaldo cuentan con las opciones de:
-
-* Imprimir planillas
-* Descargar archivo TXT para débito automático en Banco
-* Descargar archivo CSV para declaración en la ![Oficina Virtual de Trámites del Ministerio de Trabajo](https://ovt.mintrabajo.gob.bo)
-* Editar fecha de pago y nombre de Planilla
-* Eliminar Planilla (opción solo disponible para el rol administrador)
+* Imprimir planillas filtradas de acuerdo a los formatos establecidos
 
 #### EDICIÓN DE PLANILLAS
 
@@ -167,7 +139,6 @@ La edición de planillas contempla el registro de:
 * Días NO trabajados
 * RC-IVA
 * Descuentos por Atrasos, Abandonos, Faltas y Licencia S/G Haberes
-* Saldo tributario del mes anterior (para formulario A-3)
 
 Al registrar cualquiera de estos valores bastará con pulsar la tecla *ENTER* para que sean guardados. Alternativamente se puede llenar toda una fila y pulsar el botón *GUARDAR*.
 
@@ -175,49 +146,10 @@ Las opciones de Eliminar Planilla y Eliminar Registro están habilitadas solo pa
 
 ![IMAGE](./img/form_edit_procedure.png)
 
-La impresión de Planillas incluye las Planillas de Haberes (H.) y las Planillas Patronales (P.) agrupadas de acuerdo al criterio actual de MUSERPOL.
+La impresión de Planillas incluye las Planillas de Haberes (H.) y las Planillas Patronales (P.) agrupadas de acuerdo al criterio.
 
 ![print](./img/print_procedure.png)
 
-## GESTIÓN DE CONSULTORES
-
-### GESTIÓN DE CONTRATOS DE CONSULTORES
-
-![IMAGE](./img/consultant_contract_menu.png)
-
-![IMAGE](./img/list_contract_consultant.png)
-
-El listado de contratos de consultores cuenta con las siguientes opciones:
-
-- **1)** Filtro para listar los contratos activos o inactivos
-- **2)** Caja de búsqueda de acuerdo a los parámetros mostrados en pantalla
-- **3)** Botón para añadir nuevos contratos
-
-![IMAGE](./img/form_consultant_contract.png)
-
-Este formulario contiene los siguientes campos:
-
-* CI de empleado
-* Puesto que puede ser reutilizado o en caso de no existir el puesto para la consultoría este campo es editable a fin de generar un nuevo cargo
-* Haber básico de acuerdo a la escala salarial vigente en MUSERPOL
-* Unidad que requiere la consultoría
-* Fecha de inicio de la consultoría
-* Fecha de conclusión de la consultoría
-* Cite o número de contrato
-* Cite y fecha de cite de recursos humanos
-* Horario de trabajo
-
-En el panel derecho de la ventana se puede ver un resumen del total ganado y la suma de días trabajados por cada mes del tiempo de contrato.
-
-### GESTIÓN DE CONTRATOS DE CONSULTORES
-
-Esta pestaña cuenta con las mismas opciones que el módulo de planillas de personal eventual pero con la diferencia de que tan solo se pueden descargar:
-
-- **1)** Archivo TXT para débito automático en banco
-- **2)** Detalle de planilla en formato PDF con listado de personal que disponde de cuenta bancaria
-- **3)** Detealle de planilla en formato PDF con listado de todos los consultores
-
-![IMAGE](./img/consultant_payroll_index.png)
 
 ## REGISTRO DE ASISTENCIA
 
@@ -252,7 +184,7 @@ Los funcionarios con rol de Recursos Humanos pueden además seleccionar cualquie
 
 ### CONFIGURACIÓN DE HORARIOS DE TRABAJO
 
-Para el correcto funcionamiento y visualización de registros de asistencia es necesario configurar los límites de cada horario de trabajo establecido en la base de datos, así como los días laborales de acuerdo a los contratos emitidos por la institución.
+Para el correcto funcionamiento y visualización de registros de asistencia es necesario configurar los límites de cada horario de trabajo establecido en la base de datos, así como los días laborales de acuerdo a los contratos emitidos por la empresa.
 
 ![IMAGE](./img/attendance_config.png)
 
@@ -264,7 +196,7 @@ El usuario administrador puede sincronizar los datos de los dispositivos biomét
 
 ## SALIDAS Y LICENCIAS
 
-### SOLICITUD DE SALIDAS Y LICENCIAS
+### SOLICITUD DE PERMISOS
 
 Seleccione la opción de salidas y licencias como se muestra en la siguiente imagen:
 
@@ -296,13 +228,9 @@ Seleccione las opciones de acuerdo a su solicitud y proceda a imprimir la solici
 
 ![IMAGE](./img/print_departure.png)
 
-Si la solicitud debe ser presentada mediante nota al Director General Ejecutivo, se generará una carta prediseñada lista para su presentación.
-
-![IMAGE](./img/print_departure_note.png)
-
 Una vez solicitada la licencia o permiso debe adjuntar el respaldo (en caso de existir) y dirigirse a la Unidad de Recursos Humanos con la documentación correspondiente para que la solicitud sea aprobada.
 
-### ADMINISTRACIÓN DE SALIDAS Y LICENCIAS
+### ADMINISTRACIÓN DE PERMISOS
 
 Seleccione la opción de "Aprobar Permisos" que mostrará la siguiente vista:
 
@@ -319,71 +247,10 @@ El botón *REPORTE* imprime un reporte de las solicitudes generadas entre el dí
 
 ![IMAGE](./img/report_departure.png)
 
-## ALMACENES
-
-### SOLICITUDES DE PEDIDOS DE ALMACÉN
-
-Seleccione la opción de `Solicitud de Material` del menú lateral, la cual le mostrara la siguiente vista:
-
-![IMAGE](./img/supply_request.png)
-
-- **1)** Generar nueva solicitud de material.
-- **2)** Búsqueda de solicitud.
-- **3)** Filtro de pedidos *NUEVOS*, *ENTREGADOS* y *CANCELADOS*.
-
-### GENERAR SOLICITUD
-
-Seleccione la botón `+` el cual le mostrara el siguiente formulario:
-
-![IMAGE](./img/supply_index.png)
-
-- **1)** Cantidad de artículos pedidos.
-- **2)** Buscador por nombre.
-- **3)** Filtro de artículos agrupados por tipo.
-
-Una vez seleccionada la cantidad de artículos del pedido (15 artículos como máximo) se continua al siguiente paso.
-
-![IMAGE](./img/supply_show.png)
-
-En este formulario se mostrarán todos los artículos pedidos y las cantidades (aún se pueden modificar). Para eliminar un artículo bastará con reducir la cantidad pedida a `0`.
-
-![IMAGE](./img/supply_request_print.png)
-
-La impresión debe realizarse en una hoja tamaño oficio, está será dividida en dos a fin de obtener un ejemplar para el solicitante y otro para el encargado de almacén.
-
-### REGISTRAR ENTREGA DE MATERIAL
-
-Esta opción solo está disponible para el encargado de almacén.
-
-![IMAGE](./img/request_index.png)
-
-- **1)** Registrar entrega de materiales solicitados.
-- **2)** Filtro de solicitudes *NUEVAS*, *ENTREGADAS* y *CANCELADAS*.
-
-Para registrar la entrega de materiales o anular la solicitud se debe presionar el botón de Entrega en la parte de derecha de cada solicitud, esto abrirá un formulario:
-
-![IMAGE](./img/request_show.png)
-
-- **1)** Anular solicitud.
-- **2)** Cambiar cantidad entregada.
-- **3)** Registrar e imprimir entrega.
-
-![IMAGE](./img/request_print.png)
-
-La impresión debe realizarse en una hoja tamaño oficio, está será dividida en dos a fin de obtener un ejemplar para el solicitante y otro para el encargado de almacén.
-
-### STOCK DE MATERIALES
-
-Esta opción solo está disponible para el encargado de almacén.
-
-![IMAGE](./img/material_index.png)
-
-- **1)** Buscar material por nombre.
-- **2)** Filtro de materiales por grupo.
 
 ## ADMINISTRACIÓN DE USUARIOS
 
-Gestión de roles para cada cuenta de usuario con acceso al sistema, esta lista es generada mediante la lista de usuarios disponible en el servidor de identificación centralizada LDAP.
+Gestión de roles para cada cuenta de usuario con acceso al sistema, esta lista es generada mediante la lista de usuarios disponible en el servidor
 
 ![IMAGE](./img/users.png)
 
@@ -393,7 +260,7 @@ Cada acción generada por los usuarios es guardada como respaldo de la actividad
 
 ![IMAGE](./img/activities.png)
 
-## CONFIGURACIÓN DE DATOS INSTITUCIONALES
+## CONFIGURACIÓN DE DATOS DE LA EMPRESA
 
 Para la correcta impresión del nombre de la institución, así como su acrónimo y datos adicionales, es necesario configurar los datos institucionales; entre otros, la resolución y fecha de designación de la máxima autoridad ejecutiva.
 
